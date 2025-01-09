@@ -1,16 +1,11 @@
 <a id="readme-top"></a>
-
-[![Contributors][contributors-shield]][contributors-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://revoloero.github.io/vqm-mai-genealogy/">
     <img src="src\assets\mai-genealogy-icon.jpeg" alt="Logo" width="80" height="80">
   </a>
-
   <h3 align="center">MAI Genealogy Project</h3>
-
   <p align="center">
     My Personal Family Tree Project
     <br />
@@ -18,7 +13,6 @@
     <br />
   </p>
 </div>
-
 ### Built With
 
 * [![React][React.js]][React-url]
