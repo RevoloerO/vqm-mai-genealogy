@@ -76,6 +76,9 @@ body{
   animation: resizing 1.25s ease-in-out; 
   transition: box-shadow 1s ease-in-out ; 
 }
+#family-tree{
+  background-color: white;
+}
 
 @keyframes resizing {
   from {
