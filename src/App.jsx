@@ -10,9 +10,13 @@ import TreeShow from './TreeShow.jsx';
 import headerImg1 from './assets/mai-genealogy-icon.jpeg';
 
 const Header = () => {
+  
   const headerTransition = () => {
     document.getElementById("header-img-1").id = 'header-img-2';
     document.getElementById("body-background").classList.add("background");
+    document.getElementById("header-img-2").onclick = () => {
+      window.location.reload();
+    };;
     const content1 = document.getElementById("content-1");
     document.getElementById("content-1").hidden = false;
     setTimeout(() => {
@@ -20,6 +24,8 @@ const Header = () => {
       content1.classList.add("visible");
     }, 1000);
   }
+
+  
   return (
     <div className='content'>
       <div className="header">
@@ -42,11 +48,13 @@ const App = () => {
   }, [])
 
   return (
-    <div id='body-content'>
+    <>
       <div id='body-background'></div>
-      <Header />
-      <TreeShow familyData={familyData} />
-    </div>
+      <div id='body-content'>
+        <Header />
+        <TreeShow familyData={familyData} />
+      </div>
+    </>
   )
 }
 

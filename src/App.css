@@ -15,6 +15,8 @@ body{
 #body-content{
   min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 #body-background{
   width: 100%;
@@ -26,6 +28,7 @@ body{
   width: 100%;
   height: auto;
   position: absolute;
+  display: block;
 }
 #content-1{
   transition: all 3s ease-in-out;
@@ -76,10 +79,20 @@ body{
     -10px -10px 40px var(--neon-left),        /* outer left magenta */
     10px -10px 40px var(--neon-right),         /* outer right cyan */
     0px 10px 40px var(--neon-below);          
-  animation: resizing 1.25s ease-in-out; 
-  transition: box-shadow 1s ease-in-out ; 
+  animation: resizing 1.25s ease-in-out, 
+  heartbeat2 3s infinite ease-in-out 1.5s; 
+  transition: box-shadow 1s ease-in-out; 
 }
-
+#header-img-2:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow:
+    0 0 35px #fff,           
+    -10px -10px 50px var(--neon-left),        
+    10px -10px 50px var(--neon-right),         
+    0px 10px 50px var(--neon-below);
+  transition: width 2s ease-in-out; 
+}
 .hidden {
   opacity: 0;
   transition: opacity 0.75s ease-in-out;
@@ -121,6 +134,21 @@ body{
     0 0 50px #fff
   }
 }
+@keyframes heartbeat2 {
+  from{box-shadow:
+    0 0 30px #fff;
+  }
+  50%{box-shadow:
+    0 0 30px #fff,       
+    -10px 0 40px var(--neon-heartbeat-left),
+    10px 0 40px var(--neon-heartbeat-right),
+    -10px 0 100px rgba(255, 255, 255, 0.5),       
+    10px 0 100px rgba(255, 255, 255, 0.5);
+  }
+  to{box-shadow:
+    0 0 30px #fff
+  }
+}
 @keyframes hover-shine {
   from{box-shadow:
     0 0 50px #fff
@@ -130,4 +158,17 @@ body{
     -10px 0 80px var(--neon-left),        
     10px 0 80px var(--neon-right);
   }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards; /* 1s duration, forwards to keep the final state */
 }
