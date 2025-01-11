@@ -13,9 +13,15 @@ const Header = () => {
   const headerTransition = () => {
     document.getElementById("header-img-1").id = 'header-img-2';
     document.getElementById("body-background").classList.add("background");
+    const content1 = document.getElementById("content-1");
+    document.getElementById("content-1").hidden = false;
+    setTimeout(() => {
+      content1.classList.remove("hidden");
+      content1.classList.add("visible");
+    }, 1000);
   }
   return (
-    <div id='content'>
+    <div className='content'>
       <div className="header">
         <img id="header-img-1" src={headerImg1} alt=""
           onClick={() => headerTransition()} ></img>
@@ -39,7 +45,6 @@ const App = () => {
     <div id='body-content'>
       <div id='body-background'></div>
       <Header />
-      {familyData && familyData.length > 0 && data.map((item)=><p>{item.about}</p>)}
       <TreeShow familyData={familyData} />
     </div>
   )

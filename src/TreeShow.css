@@ -1,0 +1,65 @@
+.family-tree-banner {
+    min-height: auto;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: auto;
+    margin: auto;
+    position: relative;
+    top: 50%;
+}
+
+.family-tree-content {
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    margin: auto;
+}
+
+.member-tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    width: auto;
+    max-width: 350px;
+    border-radius: 5%;
+    border: 2px solid #000;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 10px 20px;
+    position: relative;
+    transition: height 1s ease-in-out;
+}
+
+.member-tag h2,
+.member-tag p {
+    display: block;
+    margin: 0;
+    padding: 3px 0;
+}
+
+.member-info {
+    display: none; /* Hide by default */
+    background-color: white;
+    /*border: 1px solid #000;*/
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+}
+.member-info ul {
+    margin: 0;
+    padding: 0;
+}
+.member-tag:hover .member-info {
+    display: block; 
+}

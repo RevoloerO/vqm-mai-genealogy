@@ -22,10 +22,13 @@ body{
   position: absolute;
   top:0;
 }
-#content{
+.content{
   width: 100%;
   height: auto;
   position: absolute;
+}
+#content-1{
+  transition: all 3s ease-in-out;
 }
 .background{
   background-image: url("assets/vqm-mai-family-root-background-2.jpeg");
@@ -33,13 +36,13 @@ body{
   background-repeat: no-repeat;
   background-size: auto 100%;
   animation: fadingIn 1.5s ease-in-out; 
-  transition: all 0.1s ease-in-out; 
+  transition: all 0.1s ease-in-out;
+  z-index: -1; 
 }
 
 .header {
   width: auto;
   display: flex;
-  
 }
 #header-img-1{
   border-radius: 50%;
@@ -76,8 +79,15 @@ body{
   animation: resizing 1.25s ease-in-out; 
   transition: box-shadow 1s ease-in-out ; 
 }
-#family-tree{
-  background-color: white;
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 0.75s ease-in-out;
 }
 
 @keyframes resizing {
