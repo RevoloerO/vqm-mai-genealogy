@@ -56,7 +56,7 @@ body{
   margin-top: 5vh;
   box-shadow: 0 0 40px #fff;           /* outer white */
   transition: box-shadow 0.75s ease-in-out; 
-  animation: heartbeat 2s infinite ease-in-out;
+  animation: heartbeat 2s infinite ease-in-out 1s;
 }
 #header-img-1:hover{
   animation: hover-shine 1s ease-in;
@@ -79,7 +79,7 @@ body{
     -10px -10px 40px var(--neon-left),        /* outer left magenta */
     10px -10px 40px var(--neon-right),         /* outer right cyan */
     0px 10px 40px var(--neon-below);          
-  animation: resizing 1.25s ease-in-out, 
+  animation: resizingHeader 1.25s ease-in-out, 
   heartbeat2 3s infinite ease-in-out 1.5s; 
   transition: box-shadow 1s ease-in-out; 
 }
@@ -103,7 +103,7 @@ body{
   transition: opacity 0.75s ease-in-out;
 }
 
-@keyframes resizing {
+@keyframes resizingHeader {
   from {
     margin-top: 5vh;
     max-width: 80vw;
@@ -168,6 +168,7 @@ body{
     opacity: 0;
   }
 }
+
 
 .fade-out {
   animation: fadeOut 1s forwards; /* 1s duration, forwards to keep the final state */

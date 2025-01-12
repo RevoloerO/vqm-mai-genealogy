@@ -15,7 +15,10 @@ const Header = () => {
     document.getElementById("header-img-1").id = 'header-img-2';
     document.getElementById("body-background").classList.add("background");
     document.getElementById("header-img-2").onclick = () => {
-      window.location.reload();
+      document.getElementById('body-content').classList.add('fade-out');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     };;
     const content1 = document.getElementById("content-1");
     document.getElementById("content-1").hidden = false;
