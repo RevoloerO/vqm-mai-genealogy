@@ -30,9 +30,6 @@ body{
   position: absolute;
   display: block;
 }
-#content-1{
-  transition: all 3s ease-in-out;
-}
 .background{
   background-image: url("assets/vqm-mai-family-root-background-2.jpeg");
   background-position: center;

@@ -20,8 +20,8 @@ const Header = () => {
         window.location.reload();
       }, 1000);
     };;
-    const content1 = document.getElementById("content-1");
-    document.getElementById("content-1").hidden = false;
+    const content1 = document.getElementById("banner1");
+    document.getElementById("banner1").hidden = false;
     setTimeout(() => {
       content1.classList.remove("hidden");
       content1.classList.add("visible");
