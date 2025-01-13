@@ -6,7 +6,7 @@
     align-items: center;
     height: auto;
     width: auto;
-    margin: 35% auto;
+    margin: 30vh auto auto auto;
     position: relative;
     top: 50%;
     transition: all 3s ease-in-out;
@@ -37,7 +37,7 @@
     background-color: #fff;
     padding: 10px 20px;
     position: relative;
-    transition: height 1s ease-in-out;
+    transition: all 3s ease-in-out;
 }
 
 .member-tag h2,

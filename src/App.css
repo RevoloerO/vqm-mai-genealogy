@@ -35,7 +35,7 @@ body{
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto 100%;
-  animation: fadingIn 1.5s ease-in-out; 
+  animation: fadeIn 1.5s ease-in-out; 
   transition: all 0.1s ease-in-out;
   z-index: -1; 
 }
@@ -54,6 +54,7 @@ body{
   box-shadow: 0 0 40px #fff;           /* outer white */
   transition: box-shadow 0.75s ease-in-out; 
   animation: heartbeat 2s infinite ease-in-out 1s;
+  z-index: 10;
 }
 #header-img-1:hover{
   animation: hover-shine 1s ease-in;
@@ -161,8 +162,22 @@ body{
   from {
     opacity: 1;
   }
+  50% {
+    opacity: 0.5;
+  }
   to {
     opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
   }
 }
 

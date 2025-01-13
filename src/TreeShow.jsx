@@ -3,6 +3,7 @@ import './TreeShow.css';
 import './App.css';
 
 const MemberTag = ({ memberData }) => {
+    //console.log(memberData.children[0]["vn-name"]);
     return (
         <div className='member-tag'>
             <h2>{memberData['vn-name']}</h2>
@@ -11,8 +12,18 @@ const MemberTag = ({ memberData }) => {
                 <ul>
                     <li>Gender: {memberData.gender === 'M' ? 'Male' :
                         memberData.gender === 'F' ? 'Female' : 'Unknown'}</li>
-                    <li>Spouse: {memberData.spouse && memberData.spouse['vn-name']}</li>
-                    <li>DOB: {memberData.dob}</li>
+                    <li>Spouse:
+                        <ul>
+                            <li>{memberData.spouse && memberData.spouse['vn-name']}
+                             &#123;{memberData.spouse && memberData.spouse.dob}&#125;</li>
+                        </ul>
+                    </li>
+                    <li>Children:
+                        <ul>
+                            {memberData.children && memberData.children.map(
+                                (child, index) => (<li key={index}>{child['vn-name']} &#123;{child.dob}&#125;</li>))}
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
