@@ -18,7 +18,7 @@ const Header = () => {
       document.getElementById('body-content').classList.add('fade-out');
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 1600);
     };;
     const content1 = document.getElementById("banner1");
     document.getElementById("banner1").hidden = false;

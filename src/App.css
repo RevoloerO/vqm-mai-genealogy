@@ -183,5 +183,5 @@ body{
 
 
 .fade-out {
-  animation: fadeOut 1s forwards; /* 1s duration, forwards to keep the final state */
+  animation: fadeOut 1.5s forwards; /* 1s duration, forwards to keep the final state */
 }
