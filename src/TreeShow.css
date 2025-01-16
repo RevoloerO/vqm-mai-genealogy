@@ -63,3 +63,7 @@
 .member-tag:hover .member-info {
     display: block; 
 }
+.member-tag:hover {
+    border-radius: 3%;
+
+}
