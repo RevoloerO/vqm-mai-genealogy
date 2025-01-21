@@ -44,6 +44,14 @@ body{
   width: auto;
   display: flex;
 }
+.header-btn{
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  display: none;
+  width: 100%;
+  z-index: 10;
+}
 #header-img-1{
   border-radius: 50%;
   max-width: 80vw;
@@ -94,6 +102,7 @@ body{
 .hidden {
   opacity: 0;
   transition: opacity 0.75s ease-in-out;
+  z-index: -1;
 }
 
 .visible {

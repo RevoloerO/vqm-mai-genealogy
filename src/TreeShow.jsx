@@ -41,7 +41,7 @@ const MemberTag = ({ memberData }) => {
 const TreeShow = ({ familyData }) => {
     //console.log(familyData['spouse']['vn-name']);
     return (
-        <div className='family-tree-banner hidden' id='banner1' hidden={true} >
+        <div className='family-tree-banner hidden' id='banner1' >
             <div className='family-tree-content'>
                 <MemberTag memberData={familyData} />
             </div>
