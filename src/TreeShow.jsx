@@ -29,9 +29,10 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
                                     ))}
                             </ul>
                         </li>
+                        <button onClick={onGoBack}>Go Back</button>
                     </ul>
                 </div>
-                <button onClick={onGoBack}>Go Back</button>
+                
             </>
         )
     }
