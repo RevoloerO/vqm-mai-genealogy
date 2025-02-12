@@ -29,6 +29,7 @@ const Header = () => {
       content1.classList.remove("hidden");
       content1.classList.add("visible");
     }, 1000);
+    addEventListener
     document.getElementById("header-img-2").onClick = () =>{
       btn1.classList.remove("hidden");
       btn2.classList.remove("hidden");

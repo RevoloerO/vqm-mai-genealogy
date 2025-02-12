@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './TreeShow.css';
 import './App.css';
 
-const MemberTag = ({ memberData }) => {
-    //console.log(memberData.children[0]["vn-name"]);
+const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
     const MemberInfo = ({ memberData }) => {
         return (
             <>
@@ -22,11 +21,17 @@ const MemberTag = ({ memberData }) => {
                         <li>Children:
                             <ul>
                                 {memberData.children && memberData.children.map(
-                                    (child, index) => (<li key={index}>{child['vn-name']} &#123;{child.dob}&#125;</li>))}
+                                    (child, index) => (
+                                        <li key={index}>
+                                            {child['vn-name']} &#123;{child.dob}&#125;
+                                            <button onClick={() => onSelectChild(child)}>Select</button>
+                                        </li>
+                                    ))}
                             </ul>
                         </li>
                     </ul>
                 </div>
+                <button onClick={onGoBack}>Go Back</button>
             </>
         )
     }
@@ -39,14 +44,32 @@ const MemberTag = ({ memberData }) => {
 }
 
 const TreeShow = ({ familyData }) => {
-    //console.log(familyData['spouse']['vn-name']);
+    const [currentMember, setCurrentMember] = useState(familyData);
+    const [history, setHistory] = useState([]);
+
+    const handleSelectChild = (child) => {
+        setHistory([...history, currentMember]);
+        setCurrentMember(child);
+    };
+
+    const handleGoBack = () => {
+        if (history.length > 0) {
+            const previousMember = history.pop();
+            setCurrentMember(previousMember);
+            setHistory([...history]);
+        }
+    };
+
+    useEffect(() => {
+        setCurrentMember(familyData);
+    }, [familyData]);
+
     return (
         <div className='family-tree-banner hidden' id='banner1' >
             <div className='family-tree-content'>
-                <MemberTag memberData={familyData} />
+                <MemberTag memberData={currentMember} onSelectChild={handleSelectChild} onGoBack={handleGoBack} />
             </div>
         </div>
-
     );
 };
 
