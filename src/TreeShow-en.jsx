@@ -6,15 +6,15 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
     const MemberInfo = ({ memberData }) => {
         return (
             <>
-                <h2>{memberData['vn-name']}</h2>
+                <h2>{memberData['en-name']}</h2>
                 <p>--oo&#123; {memberData.dob} &#125;oo--</p>
                 <div className='member-info'>
                     <ul>
-                        <li>Giới tính (Gender): <b>{memberData.gender === 'M' ? '♂ Nam' :
-                            memberData.gender === 'F' ? '♀ Nữ' : 'Unknown'}</b></li>
-                        <li>Người Phối Ngẫu (Spouse): 
+                        <li>Gender: <b>{memberData.gender === 'M' ? 'Male' :
+                            memberData.gender === 'F' ? 'Female' : 'Unknown'}</b></li>
+                        <li>Spouse: 
                             <ul>
-                                <li>{memberData.spouse && memberData.spouse['vn-name']}
+                                <li>{memberData.spouse && memberData.spouse['en-name']}
                                     &#123;{memberData.spouse && memberData.spouse.dob}&#125;</li>
                             </ul>
                         </li>
@@ -25,7 +25,7 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
                                         <li key={index}>
 
                                             <button className='child-btn' onClick={() => onSelectChild(child)}>
-                                                {child['vn-name']} &#123;{child.dob}&#125;
+                                                {child['en-name']} &#123;{child.dob}&#125;
                                             </button>
                                         </li>
                                     ))}
@@ -46,7 +46,7 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
     )
 }
 
-const TreeShow = ({ familyData }) => {
+const TreeShowEn = ({ familyData }) => {
     const [currentMember, setCurrentMember] = useState(familyData);
     const [history, setHistory] = useState([]);
 
@@ -76,4 +76,4 @@ const TreeShow = ({ familyData }) => {
     );
 };
 
-export default TreeShow;
+export default TreeShowEn;

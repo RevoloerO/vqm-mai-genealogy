@@ -48,7 +48,7 @@
 }
 
 .member-info {
-    display: none; /* Hide by default */
+    display: block; /* Hide by default */
     background-color: white;
     /*border: 1px solid #000;*/
     padding: 0;
