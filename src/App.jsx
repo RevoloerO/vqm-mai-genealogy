@@ -36,16 +36,17 @@ const Header = ({ onLanguageChange }) => {
   }
 
   return (
-    <div className='content'>
+    <div className='header-content'>
       <div className="header">
         <button className="header-btn hidden" id="btn-1" onClick={() => { }} >Xem gia phả</button>
         <img id="header-img-1" src={headerImg1} alt="" onClick={() => headerTransition()} ></img>
         <button className="header-btn hidden" id="btn-2" onClick={resetPage}>Reload</button>
         
       </div>
-      <button className="lang-btn hidden" onClick={() => onLanguageChange('vn')}>VN</button>
+      <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+        <button className="lang-btn hidden" onClick={() => onLanguageChange('vn')}>VN</button>
         <button className="lang-btn hidden" onClick={() => onLanguageChange('en')}>EN</button>
-
+      </div>
     </div>
   )
 }
@@ -69,8 +70,8 @@ const App = () => {
 
   return (
     <>
-      <div id='body-background'></div>
-      <div id='body-content'>
+      <div id='body-background' ></div>
+      <div id='body-content' >
         <Header onLanguageChange={handleLanguageChange} />
         {language === 'vn' ? <TreeShow familyData={familyData} /> : <TreeShowEn familyData={familyData} />}
       </div>
