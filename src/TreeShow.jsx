@@ -17,8 +17,7 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack }) => {
                             memberData.gender === 'F' ? '♀ Nữ' : 'Unknown'}</li>
                         <li><h4>Người Phối Ngẫu (Spouse): </h4>
                             <ul>
-                                <li>{memberData.spouse && memberData.spouse['vn-name']}
-                                    &#123;{memberData.spouse && memberData.spouse.dob}&#125;</li>
+                                <li>{memberData.spouse && memberData.spouse['vn-name']} &#123;{memberData.spouse && memberData.spouse.dob}&#125;</li>
                             </ul>
                         </li>
                         <li><h4>Con (Children):</h4>

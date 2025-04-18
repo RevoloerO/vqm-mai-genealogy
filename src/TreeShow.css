@@ -1,12 +1,22 @@
+/* TreeShow.css */
 :root {
-    --background-color: #2B2B2B; /* Dark Charcoal */
-    --primary-accent: #4B4E6D; /* Moonlit Slate */
-    --secondary-accent: #6A7BA2; /* Soft Steel Blue */
-    --highlight-color: #C0A36E; /* Vintage Gold */
-    --text-color: #E0E0E0; /* Light Gray */
-    --soft-accent: #3E3E50; /* Deep Moon Gray */
-    --deep-accent: #1F1F2E; /* Midnight Blue */
-    --soft-highlight-color: #D4B483; /* Soft Gold */
+    --background-color: #FAF3E0;
+    /* Light Beige */
+    --primary-accent: #A7B6C2;
+    /* Soft Slate Gray */
+    --secondary-accent: #8FAADC;
+    /* Light Steel Blue */
+    --highlight-color: #C9A256;
+    /* Darker Gold */
+    --text-color: #4A4A4A;
+    /* Dark Gray */
+    --soft-accent: #DCE4ED;
+    /* Light Powder Blue */
+    --deep-accent: #B0C4C4;
+    /* Soft Slate */
+    --soft-highlight-color: #F0D9B5;
+    /* Pale Gold */
+
 }
 
 .family-tree-banner {
@@ -22,7 +32,8 @@
     margin: 20vh auto auto auto;
     position: relative;
     transition: all 3s ease-in-out;
-    border: 2px solid var(--soft-highlight-color); /* Use softer highlight for the banner */
+    border: 2px solid var(--soft-highlight-color);
+    /* Use softer highlight for the banner */
 }
 
 .family-tree-content {
@@ -33,7 +44,8 @@
     align-items: center;
     height: auto;
     width: auto;
-    gap: 20px; /* Add spacing between elements */
+    gap: 20px;
+    /* Add spacing between elements */
     padding: 20px;
 }
 
@@ -47,9 +59,10 @@
     width: auto;
     max-width: 350px;
     border-radius: 5%;
-    border: 2px solid var(--soft-highlight-color); /* Use softer highlight for member tags */
+    border: 2px solid var(--);
+    /* Use softer highlight for member tags */
     overflow: hidden;
-    background-color: var(--soft-accent);
+    background-color: var(--background-color);
     color: var(--text-color);
     margin: 15px;
     padding: 20px 25px;
@@ -65,7 +78,8 @@
 }
 
 .member-info {
-    display: block; /* Hide by default */
+    display: block;
+    /* Hide by default */
     background-color: var(--background-color);
     color: var(--text-color);
     /*border: 1px solid #000;*/
@@ -74,14 +88,17 @@
     width: 100%;
     text-align: left;
 }
+
 .member-info ul {
     margin: 10px 0;
     padding: 10px;
     background-color: var(--soft-accent);
 }
+
 .member-tag:hover .member-info {
-    display: block; 
+    display: block;
 }
+
 .member-tag:hover {
     border-radius: 3%;
 }
@@ -121,27 +138,39 @@
 
 .member-dob {
     font-style: italic;
-    color: var(--soft-highlight-color); /* Use softer highlight color */
+
+    /* Use softer highlight color */
     margin: 5px 0 0 0;
 }
 
 .info-list {
     list-style-type: none;
     padding: 0;
+    margin-bottom: 15px;
+}
+
+.info-list li,
+.children-list li {
+    margin-bottom: 10px; /* Add space between list items */
+    color: var(--text-color); /* Use text color for better visual consistency */
 }
 
 .children-list {
     margin-top: 15px;
-    padding-left: 20px; /* Adjust padding for ordered list */
-    list-style-type: decimal; /* Use numbers for the list */
-    list-style-position: inside; /* Align numbers with list items */
-    color: var(--text-color); /* Match text color */
-    font-weight: bold; /* Make numbers bold like list items */
+    padding-left: 20px;
+    /* Adjust padding for ordered list */
+    list-style-type: decimal;
+    /* Use numbers for the list */
+    list-style-position: inside;
+    /* Align numbers with list items */
+    color: var(--text-color);
+    /* Match text color */
+    font-weight: bold;
+    /* Make numbers bold like list items */
 }
 
 .modern-btn {
-    background-color: var(--soft-highlight-color); /* Use softer highlight for buttons */
-    color: var(--background-color);
+    /* Use softer highlight for buttons */
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
@@ -150,14 +179,15 @@
 }
 
 .modern-btn:hover {
-    background-color: var(--highlight-color); /* Use stronger highlight on hover */
+    background-color: var(--soft-highlight-color);
+    /* Use stronger highlight on hover */
     color: var(--text-color);
 }
 
 .go-back-btn {
-    position: absolute;
-    bottom: 10px;
+    position:relative;
     left: 50%;
+    bottom: -20px;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -165,20 +195,24 @@
     background-color: var(--highlight-color);
     color: var(--background-color);
     border: none;
-    padding: 8px 12px;
-    border-radius: 50%;
+    padding: 10px 15px;
+    border-radius: 12px; /* Rounded rectangle shape */
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    margin-top: 15px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .go-back-btn:hover {
     background-color: var(--secondary-accent);
-    transform: scale(1.1);
+    transform: translateX(-50%) scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
 }
 
 h4 {
-    color: var(--highlight-color); /* Match with primary accent color */
+    color: var(--highlight-color);
+    /* Match with primary accent color */
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -188,8 +222,9 @@ h4 {
     margin-bottom: 15px;
     padding: 10px;
     background-color: var(--soft-accent);
-    border: 2px solid var(--soft-highlight-color); /* Use softer highlight for honor title */
+    border: 2px solid var(--highlight-color);
+    /* Use softer highlight for honor title */
     border-radius: 8px;
     box-shadow: 0 2px 8px var(--deep-accent);
-    color: var(--soft-highlight-color); /* Adjust text color */
+    /* Adjust text color */
 }
