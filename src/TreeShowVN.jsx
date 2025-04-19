@@ -53,7 +53,7 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack, history }) => {
     )
 }
 
-const TreeShow = ({ familyData }) => {
+const TreeShowVN = ({ familyData }) => {
     const [currentMember, setCurrentMember] = useState(familyData);
     const [history, setHistory] = useState([]);
 
@@ -88,4 +88,4 @@ const TreeShow = ({ familyData }) => {
     );
 };
 
-export default TreeShow;
+export default TreeShowVN;

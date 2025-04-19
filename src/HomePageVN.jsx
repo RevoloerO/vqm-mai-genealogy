@@ -1,15 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './HomePage.css';
-import { useEffect } from 'react';
 import genealogyData from './mai-genealogy.json';
-import TreeShow from './TreeShow.jsx';
-import TreeShowEn from './TreeShow-en.jsx';
+import TreeShowVN from './TreeShowVN.jsx';
 import { useNavigate } from 'react-router-dom';
 
 //import image
 import headerImg1 from './assets/mai-genealogy-icon.jpeg';
 
-const Header = ({ onLanguageChange }) => {
+const Header = () => {
     const navigate = useNavigate();
     const resetPage = () => {
         document.getElementById('body-content').classList.add('fade-out');
@@ -42,43 +40,34 @@ const Header = ({ onLanguageChange }) => {
                 <button className="header-btn hidden" id="btn-1" onClick={() => { }} >Xem gia phả</button>
                 <img id="header-img-1" src={headerImg1} alt="" onClick={() => headerTransition()} ></img>
                 <button className="header-btn hidden" id="btn-2" onClick={resetPage}>Reload</button>
-
             </div>
             <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
-                <button className="lang-btn hidden" onClick={() => onLanguageChange('vn')}>VN</button>
-                <button className="lang-btn hidden" onClick={() => onLanguageChange('en')}>EN</button>
-                <button className="lang-btn " onClick={() => { navigate('/vqm-mai-genealogy/vn') }}>Switch to VN</button>
+                <button className="lang-btn " onClick={() => { navigate('/vqm-mai-genealogy/en') }}>Switch to EN</button>
             </div>
         </div>
     )
 }
 
-const HomePage = () => {
-  const [data, setData] = useState()
-  const [familyData, setFamilyData] = useState([]);
-  const [language, setLanguage] = useState('vn');
+const HomePageVN = () => {
+    const [familyData, setFamilyData] = useState([]);
 
-  const getFamilyData = () => {
-    setFamilyData(genealogyData);
-  }
+    const getFamilyData = () => {
+        setFamilyData(genealogyData);
+    }
 
-  useEffect(() => {
-    getFamilyData();
-  }, [])
+    useEffect(() => {
+        getFamilyData();
+    }, [])
 
-  const handleLanguageChange = (lang) => {
-    setLanguage(lang);
-  }
-
-  return (
-    <>
-      <div id='body-background' ></div>
-      <div id='body-content' >
-        <Header onLanguageChange={handleLanguageChange} />
-        {language === 'vn' ? <TreeShow familyData={familyData} /> : <TreeShowEn familyData={familyData} />}
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div id='body-background' ></div>
+            <div id='body-content' >
+                <Header />
+                <TreeShowVN familyData={familyData} />
+            </div>
+        </>
+    )
 }
 
-export default HomePage;
+export default HomePageVN;
