@@ -98,11 +98,6 @@
 .member-tag:hover .member-info {
     display: block;
 }
-
-.member-tag:hover {
-    border-radius: 3%;
-}
-
 .vintage-background {
     background-color: var(--background-color);
     border: 2px solid var(--primary-accent);

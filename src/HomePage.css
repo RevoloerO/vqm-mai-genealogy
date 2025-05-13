@@ -83,16 +83,31 @@ body {
     color: var(--background-color);
     border: 2px solid var(--highlight-color);
     cursor: pointer;
-    display: none;
-    width: 100%;
+    display: none; /* Hidden by default */
+    position: absolute; /* Position at the top */
+    top: 10px; /* Adjust to place at the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
     z-index: 10;
-    margin: 5px 10px;
+    margin: 5px;
     padding: 10px 15px;
+    transition: opacity 0.75s ease-in-out, transform 0.3s ease-in-out; /* Smooth transitions */
+}
+
+.header-btn.hidden {
+    display: none; /* Ensure hidden buttons are not rendered */
+    opacity: 0;
+}
+
+.header-btn.visible {
+    display: block; /* Ensure visible buttons are rendered */
+    opacity: 1;
+    transform: translateX(-50%) scale(1); /* Reset scaling */
 }
 
 .lang-btn {
     background-color: var(--soft-accent);
-    color: var(--deep-accent);
+    color: var (--deep-accent);
     border: 1px solid var(--primary-accent);
     margin: 10px;
     padding: 8px 12px;
@@ -113,7 +128,7 @@ body {
     /* outer white */
     transition: box-shadow 0.75s ease-in-out;
     animation: heartbeat 2s infinite ease-in-out 1s;
-    z-index: 10;
+    z-index: 9;
 }
 
 #header-img-1:hover {
@@ -133,6 +148,8 @@ body {
     height: auto;
     margin: auto;
     margin-top: 2vh;
+    z-index: 9;
+
     box-shadow:
         0 0 30px #fff,
         /* outer white */
@@ -158,12 +175,14 @@ body {
 }
 
 .hidden {
+    display: none; /* Ensure the element is not rendered */
     opacity: 0;
     transition: opacity 0.75s ease-in-out;
     z-index: -1;
 }
 
 .visible {
+    display: block; /* Ensure the element is rendered */
     opacity: 1;
     transition: opacity 0.75s ease-in-out;
 }
