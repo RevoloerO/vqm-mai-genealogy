@@ -4,6 +4,9 @@ import './TreeShow.css';
 import './App.css';
 
 const MemberTag = ({ memberData, onSelectChild, onGoBack, history }) => {
+    // Find the previous member (father) if available
+    const father = history.length > 0 ? history[history.length - 1] : null;
+
     const MemberInfo = ({ memberData }) => {
         return (
             <div className="member-info-container">
@@ -11,8 +14,29 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack, history }) => {
                     <h2 className="member-name">{memberData['vn-name']}</h2>
                     <p className="member-dob">--oo&#123; {memberData.dob} &#125;oo--</p>
                 </div>
+                {/* Father button under honor title */}
+                {father && (
+                    <button
+                        className="modern-btn father-btn"
+                        style={{
+                            margin: '10px 0 18px 0',
+                            fontWeight: 600,
+                            fontSize: '1em',
+                            backgroundColor: 'var(--secondary-accent)',
+                            color: 'var(--background-color)',
+                            border: '2px solid var(--highlight-color)',
+                            borderRadius: '18px',
+                            boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)',
+                            transition: 'background 0.2s, color 0.2s, box-shadow 0.2s'
+                        }}
+                        onClick={onGoBack}
+                    >
+                        <FaArrowLeft style={{ marginRight: 8 }} />
+                        {father['vn-name']}
+                    </button>
+                )}
                 <div className='member-info'>
-                    <ul className="info-list">
+                    <ul className="info-list" style={{ marginTop: 0 }}>
                         <li><h4>Giới tính (Gender):</h4> {memberData.gender === 'M' ? '♂ Nam' :
                             memberData.gender === 'F' ? '♀ Nữ' : 'Unknown'}</li>
                         <li><h4>Người Phối Ngẫu (Spouse): </h4>
@@ -47,7 +71,7 @@ const MemberTag = ({ memberData, onSelectChild, onGoBack, history }) => {
     }
 
     return (
-        <div className='member-tag vintage-card'>
+        <div className='member-tag vintage-card' style={{ position: 'relative' }}>
             {memberData ? <MemberInfo memberData={memberData} /> : null}
         </div>
     )
