@@ -241,11 +241,25 @@
     flex-grow: 1;
 }
 
+.child-grid-header {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
 .child-name-grid {
     font-family: var(--font-serif);
     font-size: 1.25rem;
     color: var(--header-color);
-    margin: 0 0 0.25rem 0;
+    margin: 0;
+}
+
+.child-gender-grid {
+    font-size: 1rem;
+    color: var(--primary-accent);
+    font-weight: bold;
 }
 
 .child-dob-grid {
@@ -311,28 +325,46 @@
     cursor: pointer;
 }
 
-.child-gender {
-    font-size: 1rem;
-    color: var(--primary-accent);
-    width: 30px;
-    text-align: center;
+.child-list-item .profile-image-placeholder {
+    width: 50px;
+    height: 50px;
+    padding: 0.75rem;
+    margin-bottom: 0;
+    margin-right: 1rem;
+    flex-shrink: 0;
 }
 
 .child-info {
     flex-grow: 1;
-    padding: 0 1rem;
+    padding: 0;
 }
 
 .child-name {
     font-family: var(--font-sans);
     font-weight: 700;
+    font-size: 1.1rem;
     color: var(--header-color);
+}
+
+.child-dob-list {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin: 0.1rem 0 0.25rem 0;
 }
 
 .spouse-info {
     font-style: italic;
     color: #7d6e63;
     font-size: 0.9rem;
+}
+
+.child-gender {
+    font-size: 1rem;
+    color: var(--primary-accent);
+    width: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-right: 0.5rem;
 }
 
 .child-action-indicator {

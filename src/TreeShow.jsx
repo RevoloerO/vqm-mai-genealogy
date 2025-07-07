@@ -33,7 +33,7 @@ const MemberCard = ({ member, isSpouse = false }) => {
     );
 };
 
-// An item for the children list view.
+// An item for the children list view, now consistent with the grid view.
 const ChildListItem = ({ child, onSelectChild }) => {
     const hasChildren = child.children && child.children.length > 0;
     const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
@@ -45,9 +45,11 @@ const ChildListItem = ({ child, onSelectChild }) => {
             title={hasChildren ? `View ${child['vn-name']}'s family` : ''}
         >
             <span className="child-gender">{genderSymbol}</span>
+            <ProfileImagePlaceholder gender={child.gender} />
             <div className="child-info">
                 <span className="child-name">{child['vn-name']}</span>
-                {child.spouse && <span className="spouse-info"> & {child.spouse['vn-name']}</span>}
+                {child.dob && <p className="child-dob-list">{`Born: ${child.dob}`}</p>}
+                {child.spouse && <span className="spouse-info">& {child.spouse['vn-name']}</span>}
             </div>
             {hasChildren && <span className="child-action-indicator">→</span>}
         </li>
@@ -57,6 +59,7 @@ const ChildListItem = ({ child, onSelectChild }) => {
 // A card for displaying a child in the grid view.
 const ChildGridCard = ({ child, onSelectChild }) => {
     const hasChildren = child.children && child.children.length > 0;
+    const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
 
     return (
         <div
@@ -66,8 +69,11 @@ const ChildGridCard = ({ child, onSelectChild }) => {
         >
             <ProfileImagePlaceholder gender={child.gender} />
             <div className="child-card-details">
-                <h4 className="child-name-grid">{child['vn-name']}</h4>
-                {child.dob && <p className="child-dob-grid">{child.dob}</p>}
+                <div className="child-grid-header">
+                    <h4 className="child-name-grid">{child['vn-name']}</h4>
+                    <span className="child-gender-grid">{genderSymbol}</span>
+                </div>
+                {child.dob && <p className="child-dob-grid">{`Born: ${child.dob}`}</p>}
                 {child.spouse && <p className="spouse-info-grid">& {child.spouse['vn-name']}</p>}
             </div>
              {hasChildren && <span className="child-action-indicator-grid">View Family</span>}
