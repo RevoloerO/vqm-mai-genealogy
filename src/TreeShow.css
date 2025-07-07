@@ -1,225 +1,324 @@
-/* TreeShow.css */
-:root {
-    --background-color: #FAF3E0;
-    /* Light Beige */
-    --primary-accent: #A7B6C2;
-    /* Soft Slate Gray */
-    --secondary-accent: #8FAADC;
-    /* Light Steel Blue */
-    --highlight-color: #C9A256;
-    /* Darker Gold */
-    --text-color: #4A4A4A;
-    /* Dark Gray */
-    --soft-accent: #DCE4ED;
-    /* Light Powder Blue */
-    --deep-accent: #B0C4C4;
-    /* Soft Slate */
-    --soft-highlight-color: #F0D9B5;
-    /* Pale Gold */
+/* TreeShow.css - Styles for the family tree display */
 
+.family-tree-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
-.family-tree-banner {
-    min-height: auto;
-    background-color: var(--primary-accent);
-    color: var(--text-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    width: auto;
-    padding: 20px;
-    margin: 20vh auto auto auto;
+.tree-header {
+    text-align: center;
+    margin-bottom: 3rem;
     position: relative;
-    transition: all 3s ease-in-out;
-    border: 2px solid var(--soft-highlight-color);
-    /* Use softer highlight for the banner */
 }
 
-.family-tree-content {
-    min-height: auto;
+.tree-header h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--header-color);
+    margin: 0;
+}
+
+.tree-header p {
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.back-button {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    cursor: pointer;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
-    height: auto;
-    width: auto;
-    gap: 20px;
-    /* Add spacing between elements */
-    padding: 20px;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.member-tag {
+.back-button:hover {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px var(--card-shadow);
+}
+
+/* Parent and Spouse Section */
+.parents-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    height: auto;
-    width: auto;
-    max-width: 350px;
-    border-radius: 5%;
-    border: 2px solid var(--);
-    /* Use softer highlight for member tags */
-    overflow: hidden;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    margin: 15px;
-    padding: 36px 25px 20px 25px; /* add extra space for the father button */
-    position: relative;
-    transition: all 3s ease-in-out;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-.member-tag h2,
-.member-tag p {
-    display: block;
-    margin: 0;
-    padding: 3px 0;
+@media (min-width: 768px) {
+    .parents-section {
+        flex-direction: row;
+        gap: 3rem;
+    }
 }
 
-.member-info {
-    display: block;
-    /* Hide by default */
-    background-color: var(--background-color);
-    color: var(--text-color);
-    /*border: 1px solid #000;*/
-    padding: 0;
-    margin: 0;
+.love-icon {
+    font-size: 2.5rem;
+    color: var(--primary-accent);
+    font-family: var(--font-serif);
+    opacity: 0.7;
+}
+
+/* ELEGANT MEMBER CARD STYLES */
+.member-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
     width: 100%;
-    text-align: left;
+    max-width: 280px;
+    box-shadow: 0 4px 15px var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    text-align: center;
 }
 
-.member-info ul {
-    margin: 10px 0;
-    padding: 10px;
-    background-color: var(--soft-accent);
+.profile-image-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #e8dcb5;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    box-sizing: border-box;
 }
 
-.member-tag:hover .member-info {
-    display: block;
-}
-.vintage-background {
-    background-color: var(--background-color);
-    border: 2px solid var(--primary-accent);
-    box-shadow: 0 4px 10px var(--deep-accent);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.vintage-card {
-    background-color: var(--soft-accent);
-    border: 1px solid var(--highlight-color);
-    box-shadow: 0 2px 8px var(--deep-accent);
-    padding: 15px;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.vintage-card:hover {
-    transform: scale(1.05);
-}
-
-.member-info-container {
-    font-family: 'Quicksand', 'Segoe UI', 'Roboto', 'Arial', 'Helvetica Neue', 'Helvetica', 'Tahoma', 'Geneva', 'sans-serif';
-    color: var(--text-color);
+.member-details {
+    width: 100%;
 }
 
 .member-name {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--highlight-color);
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    color: var(--header-color);
     margin: 0;
 }
 
 .member-dob {
-    font-style: italic;
-
-    /* Use softer highlight color */
-    margin: 5px 0 0 0;
-}
-
-.info-list {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 15px;
-}
-
-.info-list li,
-.children-list li {
-    margin-bottom: 10px; /* Add space between list items */
-    color: var(--text-color); /* Use text color for better visual consistency */
-}
-
-.children-list {
-    margin-top: 15px;
-    padding-left: 20px;
-    /* Adjust padding for ordered list */
-    list-style-type: decimal;
-    /* Use numbers for the list */
-    list-style-position: inside;
-    /* Align numbers with list items */
+    font-size: 1rem;
     color: var(--text-color);
-    /* Match text color */
-    font-weight: bold;
-    /* Make numbers bold like list items */
+    margin: 0.25rem 0 0.75rem 0;
 }
 
-.modern-btn {
-    /* Use softer highlight for buttons */
+.decorative-line {
+    width: 50px;
+    height: 1px;
+    background-color: var(--primary-accent);
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+/* Central connecting line */
+.connection-line {
+    width: 1px;
+    height: 3rem;
+    background-color: var(--card-border);
+    margin: 0 auto 2rem auto;
+}
+
+/* Children Section */
+.children-section {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.children-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.children-section-header h3 {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    color: var(--header-color);
+    margin: 0;
+}
+
+.view-toggle-buttons {
+    display: flex;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.view-toggle-btn {
+    background-color: transparent;
     border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+    padding: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.modern-btn:hover {
-    background-color: var(--soft-highlight-color);
-    /* Use stronger highlight on hover */
     color: var(--text-color);
-}
-
-.go-back-btn {
-    position:relative;
-    left: 50%;
-    bottom: -20px;
-    transform: translateX(-50%);
+    opacity: 0.6;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: var(--highlight-color);
-    color: var(--background-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 12px; /* Rounded rectangle shape */
-    font-size: 1rem;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.go-back-btn:hover {
-    background-color: var(--secondary-accent);
-    transform: translateX(-50%) scale(1.05); /* Slightly enlarge on hover */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+.view-toggle-btn:hover {
+    background-color: var(--card-bg);
+    opacity: 1;
 }
 
-h4 {
-    color: var(--highlight-color);
-    /* Match with primary accent color */
-    font-weight: bold;
-    margin-bottom: 5px;
+.view-toggle-btn.active {
+    background-color: var(--card-bg);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    opacity: 1;
 }
 
-.honor-title {
+/* ELEGANT CHILDREN GRID STYLES */
+.children-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.child-grid-card {
+    background-color: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--card-shadow);
     text-align: center;
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: var(--soft-accent);
-    border: 2px solid var(--highlight-color);
-    /* Use softer highlight for honor title */
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--deep-accent);
-    /* Adjust text color */
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.child-grid-card .profile-image-placeholder {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+}
+
+.child-card-details {
+    flex-grow: 1;
+}
+
+.child-name-grid {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--header-color);
+    margin: 0 0 0.25rem 0;
+}
+
+.child-dob-grid {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin: 0 0 0.25rem 0;
+}
+
+.spouse-info-grid {
+    font-style: italic;
+    color: #7d6e63;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.child-action-indicator-grid {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--primary-accent);
+    margin-top: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-weight: bold;
+}
+
+.child-grid-card.clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px var(--card-shadow);
+    cursor: pointer;
+}
+
+.child-grid-card.clickable:hover .child-action-indicator-grid {
+    opacity: 1;
+}
+
+/* ELEGANT CHILDREN LIST STYLES */
+.children-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.child-list-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    position: relative;
+    background-color: #fff; /* Match grid card background */
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px var(--card-shadow);
+    margin-bottom: 1rem; /* Space between items */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.child-list-item:last-child {
+    margin-bottom: 0; /* No margin on the last item */
+}
+
+.child-list-item.clickable:hover {
+    transform: translateY(-5px); /* Same hover effect as grid card */
+    box-shadow: 0 6px 15px var(--card-shadow);
+    cursor: pointer;
+}
+
+.child-gender {
+    font-size: 1rem;
+    color: var(--primary-accent);
+    width: 30px;
+    text-align: center;
+}
+
+.child-info {
+    flex-grow: 1;
+    padding: 0 1rem;
+}
+
+.child-name {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    color: var(--header-color);
+}
+
+.spouse-info {
+    font-style: italic;
+    color: #7d6e63;
+    font-size: 0.9rem;
+}
+
+.child-action-indicator {
+    font-size: 1.5rem;
+    color: var(--card-border);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.child-list-item.clickable:hover .child-action-indicator {
+    color: var(--primary-accent);
+    transform: translateX(5px);
 }
