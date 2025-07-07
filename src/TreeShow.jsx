@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import './TreeShow.css';
 
 // A placeholder for a profile image, using a simple SVG silhouette.
@@ -87,6 +87,56 @@ const TreeShow = ({ familyData }) => {
     const [history, setHistory] = useState([]);
     const [animationClass, setAnimationClass] = useState('fade-in');
     const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list', default to 'grid'
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    // Memoize the flattened list of all family members for efficient searching
+    const allMembers = useMemo(() => {
+        const flattened = [];
+        const recurse = (node, path) => {
+            if (!node) return;
+            // Add the main person
+            flattened.push({ ...node, path });
+            // Add their spouse if they exist
+            if (node.spouse) {
+                flattened.push({ ...node.spouse, isSpouse: true, path });
+            }
+            // Recurse through children
+            if (node.children) {
+                node.children.forEach(child => recurse(child, [...path, node]));
+            }
+        };
+        recurse(familyData, []);
+        return flattened;
+    }, [familyData]);
+
+    // Effect to handle searching
+    useEffect(() => {
+        if (searchTerm.trim() === '') {
+            setSearchResults([]);
+            return;
+        }
+        const results = allMembers.filter(member =>
+            (member['vn-name'] && member['vn-name'].toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (member.name && member.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+        setSearchResults(results);
+    }, [searchTerm, allMembers]);
+
+    // Function to handle selecting a search result
+    const handleSelectSearchResult = (result) => {
+        setAnimationClass('fade-out');
+        setTimeout(() => {
+            // The "current member" should be the last person in the path (the parent)
+            // or the person themselves if they are the root.
+            const newCurrentMember = result.path.length > 0 ? result.path[result.path.length - 1] : result;
+            setCurrentMember(newCurrentMember);
+            setHistory(result.path);
+            setSearchTerm('');
+            setSearchResults([]);
+            setAnimationClass('fade-in');
+        }, 500);
+    };
 
     // Function to animate and then navigate to a child's family
     const handleSelectChild = (child) => {
@@ -129,6 +179,31 @@ const TreeShow = ({ familyData }) => {
                         <span>Back to {parentName}'s Family</span>
                     </button>
                 )}
+                
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Search for a family member..."
+                        className="search-input"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    {searchResults.length > 0 && (
+                        <ul className="search-results">
+                            {searchResults.map((result, index) => (
+                                <li
+                                    key={index}
+                                    className="search-result-item"
+                                    onClick={() => handleSelectSearchResult(result)}
+                                >
+                                    {result['vn-name']}
+                                    <span className="search-result-dob">{result.dob ? ` (b. ${result.dob})` : ''}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+
                 <h1>{currentMember['vn-name']}'s Family</h1>
                 <p>The Descendants of the Current Generation</p>
             </header>
