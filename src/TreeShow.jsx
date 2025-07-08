@@ -12,6 +12,7 @@ const translations = {
         viewFamily: "View Family",
         searchPlaceholder: "Search for a family member...",
         spouse: "Spouse",
+        scrollToTop: "Scroll to Top",
     },
     vn: {
         familyTitle: (name) => `Gia phả của ${name}`,
@@ -22,6 +23,7 @@ const translations = {
         viewFamily: "Xem gia phả",
         searchPlaceholder: "Tìm kiếm thành viên...",
         spouse: "Vợ/Chồng",
+        scrollToTop: "Lên đầu trang",
     }
 };
 
@@ -123,12 +125,28 @@ const TreeShow = ({ familyData }) => {
     const [searchResults, setSearchResults] = useState([]);
     const [language, setLanguage] = useState('vn');
     const [linePath, setLinePath] = useState('');
+    const [isStickyButtonsVisible, setIsStickyButtonsVisible] = useState(false);
 
     const mainMemberRef = useRef(null);
     const spouseRef = useRef(null);
     const connectionLineRef = useRef(null);
 
-    const t = (key) => translations[language][key];
+    const t = (key, ...args) => {
+        const template = translations[language][key];
+        if (typeof template === 'function') {
+            return template(...args);
+        }
+        return template;
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsStickyButtonsVisible(window.scrollY > 200);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     useEffect(() => {
         const drawLines = () => {
@@ -229,6 +247,13 @@ const TreeShow = ({ familyData }) => {
         }
     };
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     const children = currentMember.children
         ? currentMember.children.filter(child => child.name !== 'Test')
         : [];
@@ -246,16 +271,18 @@ const TreeShow = ({ familyData }) => {
                 <path d={linePath} stroke="var(--card-border)" strokeWidth="2" fill="none" />
             </svg>
             <header className="tree-header">
-                 {history.length > 0 && (
-                    <button onClick={handleGoBack} className="back-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="back-arrow-icon">
-                            <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                        </svg>
-                        <span>{t('backToTitle')(parentName)}</span>
-                    </button>
-                )}
-                
-                <div className="header-controls">
+                <div className="top-bar">
+                    <div className="top-bar-left">
+                        {history.length > 0 && (
+                            <button onClick={handleGoBack} className="back-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="back-arrow-icon">
+                                    <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                                </svg>
+                                <span>{t('backToTitle', parentName)}</span>
+                            </button>
+                        )}
+                    </div>
+
                     <div className="search-container">
                         <input
                             type="text"
@@ -279,13 +306,16 @@ const TreeShow = ({ familyData }) => {
                             </ul>
                         )}
                     </div>
-                     <div className="language-toggle">
-                        <button onClick={() => setLanguage('vn')} className={language === 'vn' ? 'active' : ''}>VN</button>
-                        <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</button>
+
+                    <div className="top-bar-right">
+                        <div className="language-toggle">
+                            <button onClick={() => setLanguage('vn')} className={language === 'vn' ? 'active' : ''}>VN</button>
+                            <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</button>
+                        </div>
                     </div>
                 </div>
 
-                <h1>{t('familyTitle')(getName(currentMember, language))}</h1>
+                <h1>{t('familyTitle', getName(currentMember, language))}</h1>
                 <p>{t('descendantsOf')}</p>
             </header>
 
@@ -346,6 +376,29 @@ const TreeShow = ({ familyData }) => {
                     </section>
                 )}
             </main>
+
+            <div className="sticky-buttons-container">
+                {history.length > 0 && (
+                    <button 
+                        onClick={handleGoBack} 
+                        className={`sticky-action-button back ${isStickyButtonsVisible ? 'visible' : ''}`}
+                        title={t('backToTitle', parentName)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                            <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                        </svg>
+                    </button>
+                )}
+                <button 
+                    onClick={scrollToTop} 
+                    className={`sticky-action-button scroll-top ${isStickyButtonsVisible ? 'visible' : ''}`}
+                    title={t('scrollToTop')}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path fillRule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     );
 };

@@ -25,7 +25,6 @@
     text-align: center;
     margin-bottom: 3rem;
     position: relative;
-    padding-top: 1rem;
 }
 
 .tree-header h1 {
@@ -40,11 +39,25 @@
     margin-top: 0.5rem;
 }
 
-/* NEW UPGRADED BACK BUTTON STYLES */
+/* NEW TOP BAR LAYOUT */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.top-bar-left, .top-bar-right {
+    flex: 1;
+    display: flex;
+}
+
+.top-bar-right {
+    justify-content: flex-end;
+}
+
 .back-button {
-    position: absolute;
-    top: 0;
-    left: 0;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: 20px;
@@ -59,6 +72,7 @@
     gap: 0.75rem;
     box-shadow: 0 4px 10px -2px var(--card-shadow);
     transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .back-button:hover {
@@ -75,20 +89,10 @@
     transform: translateX(-3px);
 }
 
-/* NEW HEADER CONTROLS & LANGUAGE TOGGLE */
-.header-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
 .search-container {
     position: relative;
+    width: 100%;
     max-width: 400px;
-    flex-grow: 1;
 }
 
 .search-input {
@@ -412,20 +416,20 @@
     align-items: center;
     padding: 0.75rem 1rem;
     position: relative;
-    background-color: #fff;
+    background-color: #fff; /* Match grid card background */
     border: 1px solid var(--card-border);
     border-radius: 4px;
     box-shadow: 0 2px 8px var(--card-shadow);
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Space between items */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .child-list-item:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0; /* No margin on the last item */
 }
 
 .child-list-item.clickable:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Same hover effect as grid card */
     box-shadow: 0 6px 15px var(--card-shadow);
     cursor: pointer;
 }
@@ -502,4 +506,44 @@
 .child-grid-card.female .child-gender-grid,
 .child-list-item.female .child-gender {
     color: #c78d5f; /* Darkest vintage orange */
+}
+
+/* NEW STICKY ACTION BUTTONS */
+.sticky-buttons-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sticky-action-button {
+    width: 50px;
+    height: 50px;
+    background-color: var(--header-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    visibility: hidden;
+}
+
+.sticky-action-button.visible {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
+
+.sticky-action-button:hover {
+    background-color: var(--primary-accent);
+    transform: scale(1.1);
 }
