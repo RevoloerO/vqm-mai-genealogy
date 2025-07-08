@@ -1,76 +1,77 @@
 {
-    "id":"G1-Khanh",
+    "id": "G1-Khanh",
     "name": "Khanh Van Mai",
-    "vn-name":"Mai Văn Khánh",
-    "en-name":"",
+    "vn-name": "Mai Văn Khánh",
+    "other-name": "",
     "dob": "1905",
-    "gender":"M",
+    "gender": "M",
     "spouse": {
         "name": "Yeng Thi Nguyen",
-        "vn-name":"Nguyễn Thị Yêng",
-        "en-name":"",
+        "vn-name": "Nguyễn Thị Yêng",
+        "other-name": "",
         "dob": "1909"
     },
     "children": [
         {
-            "id":"G2-Thu",
+            "id": "G2-Thu",
             "name": "Thu Van Mai",
-            "vn-name":"Mai Văn Thứ",
-            "en-name":"",
+            "vn-name": "Mai Văn Thứ",
+            "other-name": "",
             "dob": "1929",
-            "gender":"M",
+            "dod": "2003",
+            "gender": "M",
             "spouse": {
                 "name": "Vui Thi Nguyen",
-                "vn-name":"Nguyễn Thị Vui",
-                "en-name":"",
+                "vn-name": "Nguyễn Thị Vui",
+                "other-name": "",
                 "dob": "1932"
             },
             "children": [
                 {
-                    "id":"G3-Bat",
+                    "id": "G3-Bat",
                     "name": "Bat Van Mai",
-                    "vn-name":"Mai Văn Bát",
-                    "en-name":"",
+                    "vn-name": "Mai Văn Bát",
+                    "other-name": "",
                     "dob": "1951",
-                    "gender":"M",
+                    "gender": "M",
                     "spouse": {
                         "name": "Hoang Thi Pham",
-                        "vn-name":"Phạm Thị Hoàng",
-                        "en-name":"",
+                        "vn-name": "Phạm Thị Hoàng",
+                        "other-name": "",
                         "dob": "1956"
                     },
                     "children": [
                         {
-                            "id":"G4-Long",
+                            "id": "G4-Long",
                             "name": "Long Phi Mai",
-                            "vn-name":"Mai Phi Long",
-                            "en-name":"",
+                            "vn-name": "Mai Phi Long",
+                            "other-name": "",
                             "dob": "1974",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": {
                                 "name": "Diem Thi Bui",
-                                "vn-name":"Bùi Thị Diễm",
-                                "en-name":"",
+                                "vn-name": "Bùi Thị Diễm",
+                                "other-name": "",
                                 "dob": null
                             },
                             "children": [
                                 {
-                                    "id":"G5-Thang",
+                                    "id": "G5-Thang",
                                     "name": "Thang Dai Mai",
-                                    "vn-name":"Mai Đại Thắng",
-                                    "en-name":"",
+                                    "vn-name": "Mai Đại Thắng",
+                                    "other-name": "",
                                     "dob": null,
-                                    "gender":"M",
+                                    "gender": "M",
                                     "spouse": null,
                                     "children": null
                                 },
                                 {
-                                    "id":"G5-Hang",
+                                    "id": "G5-Hang",
                                     "name": "Hang Thi _ Mai",
-                                    "vn-name":"Mai Thị _ Hằng",
-                                    "en-name":"",
+                                    "vn-name": "Mai Thị _ Hằng",
+                                    "other-name": "",
                                     "dob": null,
-                                    "gender":"F",
+                                    "gender": "F",
                                     "spouse": null,
                                     "children": null
                                 }
@@ -79,416 +80,440 @@
                     ]
                 },
                 {
-                    "id":"G3-Van",
+                    "id": "G3-Van",
                     "name": "Van Van Mai",
-                    "vn-name":"Mai Văn Vạn",
-                    "en-name":"",
+                    "vn-name": "Mai Văn Vạn",
+                    "other-name": "",
                     "dob": null,
-                    "gender":"M",
+                    "gender": "M",
                     "spouse": null,
-                    "children": null        
+                    "children": null
                 },
                 {
-                    "id":"G3-Thanh",
+                    "id": "G3-Thanh",
                     "name": "Thanh Van Mai",
-                    "vn-name":"Mai Văn Thành",
-                    "en-name":"",
+                    "vn-name": "Mai Văn Thành",
+                    "other-name": "",
                     "dob": "1955",
-                    "gender":"M",
+                    "gender": "M",
                     "spouse": {
                         "name": "Hong Thi Nguyen",
-                        "vn-name":"Nguyễn Thị Hồng",
-                        "en-name":"",
+                        "vn-name": "Nguyễn Thị Hồng",
+                        "other-name": "",
                         "dob": "1961"
                     },
                     "children": [
                         {
-                            "id":"G4-Tam",
+                            "id": "G4-Tam",
                             "name": "Tam Thanh Mai",
-                            "vn-name":"Mai Thành Tâm",
-                            "en-name":"",
+                            "vn-name": "Mai Thành Tâm",
+                            "other-name": "",
                             "dob": "1987",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
-                        },{
-                            "id":"G4-Nhan",
+                        },
+                        {
+                            "id": "G4-Nhan",
                             "name": "Nhan Trung Mai",
-                            "vn-name":"Mai Trung Nhân",
-                            "en-name":"Dennis",
+                            "vn-name": "Mai Trung Nhân",
+                            "other-name": "Dennis",
                             "dob": null,
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": {
                                 "name": "Trang Thuy Dang",
-                                "vn-name":"Đặng Thùy Trang",
-                                "en-name":"Bella",
+                                "vn-name": "Đặng Thùy Trang",
+                                "other-name": "Bella",
                                 "dob": null
                             },
                             "children": [
                                 {
-                                    "id":"G5-Minh",
+                                    "id": "G5-Minh",
                                     "name": "Minh Khai Mai",
-                                    "vn-name":"Mai Khải Minh",
-                                    "en-name":"",
+                                    "vn-name": "Mai Khải Minh",
+                                    "other-name": "",
                                     "dob": null,
-                                    "gender":"M",
+                                    "gender": "M",
                                     "spouse": null,
                                     "children": null
                                 },
                                 {
-                                    "id":"G5-Phong",
+                                    "id": "G5-Phong",
                                     "name": "Phong Khai Mai",
-                                    "vn-name":"Mai Khải Phong",
-                                    "en-name":"",
-                                    "dob":null,
-                                    "gender":"M",
-                                    "spouse": null,
-                                    "children": null
-                                } 
-                            ]
-                        },{
-                            "id":"G4-Tai",
-                            "name": "Tai Thanh Mai",
-                            "vn-name":"Mai Thành Tài",
-                            "en-name":"Bill",
-                            "dob": "2002",
-                            "gender":"M",
-                            "spouse": null,
-                            "children": null
-                        }
-                    ]
-                },
-                {
-                    "id":"G3-Binh",
-                    "name": "Binh Van Mai",
-                    "vn-name":"Mai Văn Bình",
-                    "en-name":"",
-                    "dob": null,
-                    "gender":"M",
-                    "spouse": null,
-                    "children": null       
-                },
-                {
-                    "id":"G3-Tuoi",
-                    "name":"Tuoi Xuan Mai",
-                    "vn-name":"Mai Xuân Tươi",
-                    "en-name":"",
-                    "dob": "1957",
-                    "gender":"F",
-                    "spouse": {
-                        "name": "Long Van Tran",
-                        "vn-name":"Trần Văn Long",
-                        "en-name":"",
-                        "dob": "1957"
-                    },
-                    "children": [
-                        {
-                            "id":"G4-Cuong",
-                            "name": "Cuong Thanh Tran",
-                            "vn-name":"Trần Thanh Cường",
-                            "en-name":"",
-                            "dob": "1977",
-                            "gender":"M",
-                            "spouse": {
-                                "name": "Phuong",
-                                "vn-name":"Phương",
-                                "en-name":"",
-                                "dob": null
-                            },
-                            "children": null
-                        },
-                        {
-                            "id":"G4-Thuy",
-                            "name": "Thuy Thanh Tran",
-                            "vn-name":"Trần Thanh Thúy",
-                            "en-name":"",
-                            "dob": null,
-                            "gender":"F",
-                            "spouse": {
-                                "name": "Khanh Quan Kham",
-                                "vn-name":"Khâm Quan Khánh",
-                                "en-name":"",
-                                "dob": null
-                            },
-                            "children": null
-                        },{
-                            "id":"G4-Thinh",
-                            "name": "Thinh Thanh Tran",
-                            "vn-name":"Trần Thanh Thịnh",
-                            "en-name":"",
-                            "dob": null,
-                            "gender":null,
-                            "spouse": {
-                                "name": "Thuong",
-                                "vn-name":"Thương",
-                                "en-name":"",
-                                "dob": null
-                            },
-                            "children": null
-                        }
-                    ]
-                },
-                {
-                    "id":"G3-Viet",
-                    "name": "Viet Hung Mai",
-                    "vn-name":"Mai Hùng Việt",
-                    "en-name":"Hung Mai",
-                    "dob": "1959",
-                    "gender":"M",
-                    "spouse": {
-                        "name": "Mai Thi Tran",
-                        "vn-name":"Trần Thị Mai",
-                        "en-name":"",
-                        "dob": null
-                    },
-                    "children": [
-                        {
-                            "id":"G4-Gia",
-                            "name": "Gia Hoang Mai",
-                            "vn-name":"Mai Hoàng GIa",
-                            "en-name":"Zack Mai",
-                            "dob": "1990",
-                            "gender":"M",
-                            "spouse": {
-                                "name": "Phuong Ngoc Van",
-                                "vn-name":"Văn Ngọc Phương",
-                                "en-name":"Jannie Lien",
-                                "dob": null
-                            },
-                            "children": [
-                                {
-                                    "id":"G5-Sophia",
-                                    "name": "Sophia Mai",
-                                    "vn-name":"Mai _ Sophia",
-                                    "en-name":"",
-                                    "dob": "2022",
-                                    "gender":"F",
+                                    "vn-name": "Mai Khải Phong",
+                                    "other-name": "",
+                                    "dob": null,
+                                    "gender": "M",
                                     "spouse": null,
                                     "children": null
                                 }
                             ]
                         },
                         {
-                            "id":"G4-Nguyen",
-                            "name": "Nguyen Hoang Mai",
-                            "vn-name":"Mai Hoàng Nguyên",
-                            "en-name":"Ben Mai",
-                            "dob": "1995",
-                            "gender":"M",
-                            "spouse": {
-                                "name": "Trinh Phuong",
-                                "vn-name":"Phương Trinh",
-                                "en-name":"",
-                                "dob": null
-                            },
+                            "id": "G4-Tai",
+                            "name": "Tai Thanh Mai",
+                            "vn-name": "Mai Thành Tài",
+                            "other-name": "Bill",
+                            "dob": "2002",
+                            "gender": "M",
+                            "spouse": null,
                             "children": null
-                        } 
+                        }
                     ]
                 },
                 {
-                    "id":"G3-Tot",
-                    "name":"Tot Thi Xuan Mai",
-                    "vn-name":"Mai Thị Xuân Tốt",
-                    "en-name":"",
+                    "id": "G3-Binh",
+                    "name": "Binh Van Mai",
+                    "vn-name": "Mai Văn Bình",
+                    "other-name": "",
+                    "dob": null,
+                    "gender": "M",
+                    "spouse": null,
+                    "children": null
+                },
+                {
+                    "id": "G3-Tuoi",
+                    "name": "Tuoi Xuan Mai",
+                    "vn-name": "Mai Xuân Tươi",
+                    "other-name": "",
+                    "dob": "1957",
+                    "gender": "F",
+                    "spouse": {
+                        "name": "Long Van Tran",
+                        "vn-name": "Trần Văn Long",
+                        "other-name": "",
+                        "dob": "1957"
+                    },
+                    "children": [
+                        {
+                            "id": "G4-Cuong",
+                            "name": "Cuong Thanh Tran",
+                            "vn-name": "Trần Thanh Cường",
+                            "other-name": "",
+                            "dob": "1977",
+                            "gender": "M",
+                            "spouse": {
+                                "name": "Phuong",
+                                "vn-name": "Phương",
+                                "other-name": "",
+                                "dob": null
+                            },
+                            "children": [
+                                {
+                                    "id": "G5-Bao",
+                                    "name": "Bao Gia Tran",
+                                    "vn-name": "Trần Gia Bảo",
+                                    "other-name": "",
+                                    "dob": "2008",
+                                    "gender": "M",
+                                    "spouse": null,
+                                    "children": null
+                                },
+                                {
+                                    "id": "G5-Huy",
+                                    "name": "Huy Gia Tran",
+                                    "vn-name": "Trần Gia Huy",
+                                    "other-name": "",
+                                    "dob": "2014",
+                                    "gender": "M",
+                                    "spouse": null,
+                                    "children": null
+                                }
+                            ]
+                        },
+                        {
+                            "id": "G4-Thuy",
+                            "name": "Thuy Thanh Tran",
+                            "vn-name": "Trần Thanh Thúy",
+                            "other-name": "",
+                            "dob": null,
+                            "gender": "F",
+                            "spouse": {
+                                "name": "Khanh Quan Kham",
+                                "vn-name": "Khâm Quan Khánh",
+                                "other-name": "",
+                                "dob": null
+                            },
+                            "children": null
+                        },
+                        {
+                            "id": "G4-Thinh",
+                            "name": "Thinh Thanh Tran",
+                            "vn-name": "Trần Thanh Thịnh",
+                            "other-name": "",
+                            "dob": null,
+                            "gender": null,
+                            "spouse": {
+                                "name": "Thuong",
+                                "vn-name": "Thương",
+                                "other-name": "",
+                                "dob": null
+                            },
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "G3-Viet",
+                    "name": "Viet Hung Mai",
+                    "vn-name": "Mai Hùng Việt",
+                    "other-name": "Hung Mai",
+                    "dob": "1959",
+                    "gender": "M",
+                    "spouse": {
+                        "name": "Mai Thi Tran",
+                        "vn-name": "Trần Thị Mai",
+                        "other-name": "",
+                        "dob": null
+                    },
+                    "children": [
+                        {
+                            "id": "G4-Gia",
+                            "name": "Gia Hoang Mai",
+                            "vn-name": "Mai Hoàng GIa",
+                            "other-name": "Zack Mai",
+                            "dob": "1990",
+                            "gender": "M",
+                            "spouse": {
+                                "name": "Phuong Ngoc Van",
+                                "vn-name": "Văn Ngọc Phương",
+                                "other-name": "Jannie Lien",
+                                "dob": null
+                            },
+                            "children": [
+                                {
+                                    "id": "G5-Sophia",
+                                    "name": "Sophia Mai",
+                                    "vn-name": "Mai _ Sophia",
+                                    "other-name": "",
+                                    "dob": "2022",
+                                    "gender": "F",
+                                    "spouse": null,
+                                    "children": null
+                                }
+                            ]
+                        },
+                        {
+                            "id": "G4-Nguyen",
+                            "name": "Nguyen Hoang Mai",
+                            "vn-name": "Mai Hoàng Nguyên",
+                            "other-name": "Ben Mai",
+                            "dob": "1995",
+                            "gender": "M",
+                            "spouse": {
+                                "name": "Trinh Phuong",
+                                "vn-name": "Phương Trinh",
+                                "other-name": "",
+                                "dob": null
+                            },
+                            "children": null
+                        }
+                    ]
+                },
+                {
+                    "id": "G3-Tot",
+                    "name": "Tot Thi Xuan Mai",
+                    "vn-name": "Mai Thị Xuân Tốt",
+                    "other-name": "",
                     "dob": "1961",
-                    "gender":"F",
+                    "gender": "F",
                     "spouse": {
                         "name": "Hoang Vinh Le",
-                        "vn-name":"Lê Vinh Hoàng",
-                        "en-name":"Hoang Le",
+                        "vn-name": "Lê Vinh Hoàng",
+                        "other-name": "Hoang Le",
                         "dob": "1956"
                     },
                     "children": [
                         {
-                            "id":"G4-Quan",
+                            "id": "G4-Quan",
                             "name": "Quan Hoang Manh Le",
-                            "vn-name":"Lê Hoàng Mạnh Quân",
-                            "en-name":"",
+                            "vn-name": "Lê Hoàng Mạnh Quân",
+                            "other-name": "",
                             "dob": null,
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": {
                                 "name": "Thuy",
-                                "vn-name":"Thúy",
-                                "en-name":"",
+                                "vn-name": "Thúy",
+                                "other-name": "",
                                 "dob": null
                             },
                             "children": null
                         },
                         {
-                            "id":"G4-Ngan",
+                            "id": "G4-Ngan",
                             "name": "Ngan Hoang Phuong Le",
-                            "vn-name":"Lê Hoàng Phượng Ngân",
-                            "en-name":"",
+                            "vn-name": "Lê Hoàng Phượng Ngân",
+                            "other-name": "",
                             "dob": null,
-                            "gender":"F",
+                            "gender": "F",
                             "spouse": null,
                             "children": null
                         }
                     ]
                 },
                 {
-                    "id":"G3-Lan",
-                    "name":"Lan Thi Xuan Mai",
-                    "vn-name":"Mai Thị Xuân Lan",
-                    "en-name":"",
+                    "id": "G3-Lan",
+                    "name": "Lan Thi Xuan Mai",
+                    "vn-name": "Mai Thị Xuân Lan",
+                    "other-name": "",
                     "dob": "1963",
-                    "gender":"F",
+                    "gender": "F",
                     "spouse": null,
                     "children": null
                 },
                 {
-                    "id":"G3-Lien",
+                    "id": "G3-Lien",
                     "name": "Lien Dai Mai",
-                    "vn-name":"Mai Đại Liên",
-                    "en-name":"",
+                    "vn-name": "Mai Đại Liên",
+                    "other-name": "",
                     "dob": "1964",
-                    "gender":"F",
+                    "gender": "F",
                     "spouse": {
                         "name": "Duong Viet Pham",
-                        "vn-name":"Phạm Viết Dưỡng",
-                        "en-name":"",
+                        "vn-name": "Phạm Viết Dưỡng",
+                        "other-name": "",
                         "dob": null
                     },
                     "children": [
                         {
-                            "id":"G4-Tuyen",
+                            "id": "G4-Tuyen",
                             "name": "Tuyen Van Pham",
-                            "vn-name":"Phạm Văn Tuyến",
-                            "en-name":"",
+                            "vn-name": "Phạm Văn Tuyến",
+                            "other-name": "",
                             "dob": null,
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G4-Tuyen",
+                            "id": "G4-Tuyen",
                             "name": "Tuyen Thịnh Pham",
-                            "vn-name":"Phạm Thịnh Tuyền",
-                            "en-name":"",
+                            "vn-name": "Phạm Thịnh Tuyền",
+                            "other-name": "",
                             "dob": null,
-                            "gender":"F",
+                            "gender": "F",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G4-Yen",
+                            "id": "G4-Yen",
                             "name": "Yen Kim Pham",
-                            "vn-name":"Phạm Kim Yến",
-                            "en-name":"",
+                            "vn-name": "Phạm Kim Yến",
+                            "other-name": "",
                             "dob": null,
-                            "gender":"F",
+                            "gender": "F",
                             "spouse": null,
-                            "children":null
+                            "children": null
                         }
                     ]
                 },
                 {
-                    "id":"G3-Vuong",
+                    "id": "G3-Vuong",
                     "name": "Vuong Dai Mai",
-                    "vn-name":"Mai Đại Vương",
-                    "en-name":"Vuong Mai",
+                    "vn-name": "Mai Đại Vương",
+                    "other-name": "Vuong Mai",
                     "dob": "1965",
-                    "gender":"M",
+                    "gender": "M",
                     "spouse": {
                         "name": "Trang Thi My Do",
-                        "vn-name":"Đỗ Thị Mỹ Trang",
-                        "en-name":"Trang Do",
+                        "vn-name": "Đỗ Thị Mỹ Trang",
+                        "other-name": "Trang Do",
                         "dob": "1970"
                     },
                     "children": [
                         {
-                            "id":"G4-Quyen",
+                            "id": "G4-Quyen",
                             "name": "Quyen Vuong Mai",
-                            "vn-name":"Mai Vương Quyền",
-                            "en-name":"Vuong Quyen Mai",
+                            "vn-name": "Mai Vương Quyền",
+                            "other-name": "Vuong Quyen Mai",
                             "dob": "1995",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G4-Quoc",
+                            "id": "G4-Quoc",
                             "name": "Quoc Vuong Mai",
-                            "vn-name":"Mai Vương Quốc",
-                            "en-name":"Quoc Mai",
+                            "vn-name": "Mai Vương Quốc",
+                            "other-name": "Quoc Mai",
                             "dob": "1997",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G3-Vu",
+                            "id": "G3-Vu",
                             "name": "Vu Vuong Mai",
-                            "vn-name":"Mai Vương Vũ",
-                            "en-name":"Vu Mai",
+                            "vn-name": "Mai Vương Vũ",
+                            "other-name": "Vu Mai",
                             "dob": "2007",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G4-Nhi",
+                            "id": "G4-Nhi",
                             "name": "Nhi Vuong Yen Mai",
-                            "vn-name":"Mai Vương Yến Nhi",
-                            "en-name":"Nhi Mai",
+                            "vn-name": "Mai Vương Yến Nhi",
+                            "other-name": "Nhi Mai",
                             "dob": "2009",
-                            "gender":"F",
+                            "gender": "F",
                             "spouse": null,
                             "children": null
                         }
                     ]
                 },
                 {
-                    "id":"G3-Luong",
+                    "id": "G3-Luong",
                     "name": "Luong Dai Mai",
-                    "vn-name":"Mai Đại Lượng",
-                    "en-name":"",
+                    "vn-name": "Mai Đại Lượng",
+                    "other-name": "",
                     "dob": "1968",
-                    "gender":"M",
-                    "spouse":null,
-                    "children": null
-                },
-                {
-                    "id":"G3-Hoang",
-                    "name": "Hoang Dai Mai",
-                    "vn-name":"Mai Đại Hoàng",
-                    "en-name":"",
-                    "dob": "1971",
-                    "gender":"M",
+                    "gender": "M",
                     "spouse": null,
                     "children": null
                 },
                 {
-                    "id":"G3-Phuong",
+                    "id": "G3-Hoang",
+                    "name": "Hoang Dai Mai",
+                    "vn-name": "Mai Đại Hoàng",
+                    "other-name": "",
+                    "dob": "1971",
+                    "gender": "M",
+                    "spouse": null,
+                    "children": null
+                },
+                {
+                    "id": "G3-Phuong",
                     "name": "Phuong Nhu Mai",
-                    "vn-name":"Mai Như Phượng",
-                    "en-name":"",
+                    "vn-name": "Mai Như Phượng",
+                    "other-name": "",
                     "dob": "1974",
-                    "gender":"F",
-                    "spouse":{
+                    "gender": "F",
+                    "spouse": {
                         "name": "Dai Thien Tran",
-                        "vn-name":"Trần Thiện Đại",
-                        "en-name":"Dai Tran",
+                        "vn-name": "Trần Thiện Đại",
+                        "other-name": "Dai Tran",
                         "dob": null
                     },
                     "children": [
                         {
-                            "id":"G4-Vy",
+                            "id": "G4-Vy",
                             "name": "Vy Thien Tran",
-                            "vn-name":"Trần Thiện Vỹ",
-                            "en-name":"Michael Tran",
+                            "vn-name": "Trần Thiện Vỹ",
+                            "other-name": "Michael Tran",
                             "dob": "",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         },
                         {
-                            "id":"G4-Tam",
+                            "id": "G4-Tam",
                             "name": "Tam Thien Tran",
-                            "vn-name":"Trần Thiện Tâm",
-                            "en-name":"Lukas Tran",
+                            "vn-name": "Trần Thiện Tâm",
+                            "other-name": "Lukas Tran",
                             "dob": "",
-                            "gender":"M",
+                            "gender": "M",
                             "spouse": null,
                             "children": null
                         }
@@ -498,18 +523,16 @@
         },
         {
             "name": "Test",
-            "vn-name":"Test",
-            "en-name":"",
+            "vn-name": "Test",
+            "other-name": "",
             "dob": "1905",
             "spouse": {
                 "name": "",
-                "vn-name":"",
-                "en-name":"",
+                "vn-name": "",
+                "other-name": "",
                 "dob": "1909"
             },
-            "children": [
-                
-            ]
+            "children": []
         }
     ]
 }
