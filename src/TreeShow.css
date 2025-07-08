@@ -508,7 +508,7 @@
     color: #c78d5f; /* Darkest vintage orange */
 }
 
-/* NEW STICKY ACTION BUTTONS */
+/* ELEGANT STICKY ACTION BUTTONS */
 .sticky-buttons-container {
     position: fixed;
     bottom: 2rem;
@@ -522,28 +522,31 @@
 .sticky-action-button {
     width: 50px;
     height: 50px;
-    background-color: var(--header-color);
-    color: #fff;
-    border: none;
+    background-color: rgba(88, 60, 39, 0.85); /* var(--header-color) with alpha */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    transform: translateY(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     visibility: hidden;
 }
 
 .sticky-action-button.visible {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
     visibility: visible;
 }
 
 .sticky-action-button:hover {
-    background-color: var(--primary-accent);
-    transform: scale(1.1);
+    background-color: var(--header-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
 }
