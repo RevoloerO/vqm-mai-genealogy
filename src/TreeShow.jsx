@@ -1,7 +1,41 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import './TreeShow.css';
 
-// A placeholder for a profile image, using a simple SVG silhouette.
+// --- Translation Data ---
+const translations = {
+    en: {
+        familyTitle: (name) => `${name}'s Family`,
+        backToTitle: (name) => `Back to ${name}'s Family`,
+        descendantsOf: "The Descendants of the Current Generation",
+        descendants: "Descendants",
+        born: "Born",
+        viewFamily: "View Family",
+        searchPlaceholder: "Search for a family member...",
+        spouse: "Spouse",
+    },
+    vn: {
+        familyTitle: (name) => `Gia phả của ${name}`,
+        backToTitle: (name) => `Trở về gia phả của ${name}`,
+        descendantsOf: "Các hậu duệ của thế hệ hiện tại",
+        descendants: "Hậu duệ",
+        born: "Năm sinh",
+        viewFamily: "Xem gia phả",
+        searchPlaceholder: "Tìm kiếm thành viên...",
+        spouse: "Vợ/Chồng",
+    }
+};
+
+// --- Helper Functions ---
+const getName = (person, lang) => {
+    if (!person) return '';
+    if (lang === 'en' && person['en-name']) return person['en-name'];
+    if (lang === 'en' && person['name'] && person.name !== person['vn-name']) return person.name;
+    return person['vn-name'] || person['name'] || '';
+};
+
+
+// --- Components ---
+
 const ProfileImagePlaceholder = ({ gender }) => {
     const maleSilhouette = "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z";
     const femaleSilhouette = "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z";
@@ -16,25 +50,22 @@ const ProfileImagePlaceholder = ({ gender }) => {
     );
 };
 
-
-// A card for displaying a main family member or their spouse, redesigned for elegance.
-const MemberCard = ({ member, isSpouse = false }) => {
+const MemberCard = ({ member, lang }) => {
     if (!member) return null;
     const genderClass = member.gender === 'M' ? 'male' : 'female';
     return (
         <div className={`member-card ${genderClass}`}>
             <ProfileImagePlaceholder gender={member.gender} />
             <div className="member-details">
-                 <h2 className="member-name">{member['vn-name']}</h2>
-                 <p className="member-dob">{member.dob ? `Born: ${member.dob}` : ' '}</p>
+                 <h2 className="member-name">{getName(member, lang)}</h2>
+                 <p className="member-dob">{member.dob ? `${translations[lang].born}: ${member.dob}` : ' '}</p>
                  <div className="decorative-line"></div>
             </div>
         </div>
     );
 };
 
-// An item for the children list view, now consistent with the grid view.
-const ChildListItem = ({ child, onSelectChild }) => {
+const ChildListItem = ({ child, onSelectChild, lang }) => {
     const hasChildren = child.children && child.children.length > 0;
     const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
 
@@ -42,22 +73,21 @@ const ChildListItem = ({ child, onSelectChild }) => {
         <li
             className={`child-list-item ${hasChildren ? 'clickable' : ''}`}
             onClick={() => hasChildren && onSelectChild(child)}
-            title={hasChildren ? `View ${child['vn-name']}'s family` : ''}
+            title={hasChildren ? `${translations[lang].viewFamily} ${getName(child, lang)}` : ''}
         >
             <span className="child-gender">{genderSymbol}</span>
             <ProfileImagePlaceholder gender={child.gender} />
             <div className="child-info">
-                <span className="child-name">{child['vn-name']}</span>
-                {child.dob && <p className="child-dob-list">{`Born: ${child.dob}`}</p>}
-                {child.spouse && <span className="spouse-info">& {child.spouse['vn-name']}</span>}
+                <span className="child-name">{getName(child, lang)}</span>
+                {child.dob && <p className="child-dob-list">{`${translations[lang].born}: ${child.dob}`}</p>}
+                {child.spouse && <span className="spouse-info">& {getName(child.spouse, lang)}</span>}
             </div>
             {hasChildren && <span className="child-action-indicator">→</span>}
         </li>
     );
 };
 
-// A card for displaying a child in the grid view.
-const ChildGridCard = ({ child, onSelectChild }) => {
+const ChildGridCard = ({ child, onSelectChild, lang }) => {
     const hasChildren = child.children && child.children.length > 0;
     const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
 
@@ -65,18 +95,18 @@ const ChildGridCard = ({ child, onSelectChild }) => {
         <div
             className={`child-grid-card ${hasChildren ? 'clickable' : ''}`}
             onClick={() => hasChildren && onSelectChild(child)}
-            title={hasChildren ? `View ${child['vn-name']}'s family` : ''}
+            title={hasChildren ? `${translations[lang].viewFamily} ${getName(child, lang)}` : ''}
         >
             <ProfileImagePlaceholder gender={child.gender} />
             <div className="child-card-details">
                 <div className="child-grid-header">
-                    <h4 className="child-name-grid">{child['vn-name']}</h4>
+                    <h4 className="child-name-grid">{getName(child, lang)}</h4>
                     <span className="child-gender-grid">{genderSymbol}</span>
                 </div>
-                {child.dob && <p className="child-dob-grid">{`Born: ${child.dob}`}</p>}
-                {child.spouse && <p className="spouse-info-grid">& {child.spouse['vn-name']}</p>}
+                {child.dob && <p className="child-dob-grid">{`${translations[lang].born}: ${child.dob}`}</p>}
+                {child.spouse && <p className="spouse-info-grid">& {getName(child.spouse, lang)}</p>}
             </div>
-             {hasChildren && <span className="child-action-indicator-grid">View Family</span>}
+             {hasChildren && <span className="child-action-indicator-grid">{translations[lang].viewFamily}</span>}
         </div>
     );
 };
@@ -86,22 +116,21 @@ const TreeShow = ({ familyData }) => {
     const [currentMember, setCurrentMember] = useState(familyData);
     const [history, setHistory] = useState([]);
     const [animationClass, setAnimationClass] = useState('fade-in');
-    const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list', default to 'grid'
+    const [viewMode, setViewMode] = useState('grid');
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [language, setLanguage] = useState('vn'); // 'vn' or 'en'
 
-    // Memoize the flattened list of all family members for efficient searching
+    const t = (key) => translations[language][key];
+
     const allMembers = useMemo(() => {
         const flattened = [];
         const recurse = (node, path) => {
             if (!node) return;
-            // Add the main person
             flattened.push({ ...node, path });
-            // Add their spouse if they exist
             if (node.spouse) {
                 flattened.push({ ...node.spouse, isSpouse: true, path });
             }
-            // Recurse through children
             if (node.children) {
                 node.children.forEach(child => recurse(child, [...path, node]));
             }
@@ -110,25 +139,23 @@ const TreeShow = ({ familyData }) => {
         return flattened;
     }, [familyData]);
 
-    // Effect to handle searching
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setSearchResults([]);
             return;
         }
+        const lowerCaseSearchTerm = searchTerm.toLowerCase();
         const results = allMembers.filter(member =>
-            (member['vn-name'] && member['vn-name'].toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (member.name && member.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            (member['vn-name'] && member['vn-name'].toLowerCase().includes(lowerCaseSearchTerm)) ||
+            (member.name && member.name.toLowerCase().includes(lowerCaseSearchTerm)) ||
+            (member['en-name'] && member['en-name'].toLowerCase().includes(lowerCaseSearchTerm))
         );
         setSearchResults(results);
     }, [searchTerm, allMembers]);
 
-    // Function to handle selecting a search result
     const handleSelectSearchResult = (result) => {
         setAnimationClass('fade-out');
         setTimeout(() => {
-            // The "current member" should be the last person in the path (the parent)
-            // or the person themselves if they are the root.
             const newCurrentMember = result.path.length > 0 ? result.path[result.path.length - 1] : result;
             setCurrentMember(newCurrentMember);
             setHistory(result.path);
@@ -138,17 +165,15 @@ const TreeShow = ({ familyData }) => {
         }, 500);
     };
 
-    // Function to animate and then navigate to a child's family
     const handleSelectChild = (child) => {
         setAnimationClass('fade-out');
         setTimeout(() => {
             setHistory([...history, currentMember]);
             setCurrentMember(child);
             setAnimationClass('fade-in');
-        }, 500); // Match animation duration
+        }, 500);
     };
 
-    // Function to animate and go back to the previous generation
     const handleGoBack = () => {
         if (history.length > 0) {
             setAnimationClass('fade-out');
@@ -161,12 +186,17 @@ const TreeShow = ({ familyData }) => {
         }
     };
 
-    // Filter out the "Test" entry from children
     const children = currentMember.children
         ? currentMember.children.filter(child => child.name !== 'Test')
         : [];
 
-    const parentName = history.length > 0 ? history[history.length - 1]['vn-name'] : '';
+    const parentName = history.length > 0 ? getName(history[history.length - 1], language) : '';
+
+    // Infer spouse's gender if it's not provided in the data
+    const spouseWithGender = currentMember.spouse ? {
+        ...currentMember.spouse,
+        gender: currentMember.spouse.gender || (currentMember.gender === 'M' ? 'F' : 'M')
+    } : null;
 
     return (
         <div className={`family-tree-container ${animationClass}`}>
@@ -176,53 +206,57 @@ const TreeShow = ({ familyData }) => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" className="back-arrow-icon">
                             <path fillRule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                         </svg>
-                        <span>Back to {parentName}'s Family</span>
+                        <span>{t('backToTitle')(parentName)}</span>
                     </button>
                 )}
                 
-                <div className="search-container">
-                    <input
-                        type="text"
-                        placeholder="Search for a family member..."
-                        className="search-input"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    {searchResults.length > 0 && (
-                        <ul className="search-results">
-                            {searchResults.map((result, index) => (
-                                <li
-                                    key={index}
-                                    className="search-result-item"
-                                    onClick={() => handleSelectSearchResult(result)}
-                                >
-                                    {result['vn-name']}
-                                    <span className="search-result-dob">{result.dob ? ` (b. ${result.dob})` : ''}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                <div className="header-controls">
+                    <div className="search-container">
+                        <input
+                            type="text"
+                            placeholder={t('searchPlaceholder')}
+                            className="search-input"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {searchResults.length > 0 && (
+                            <ul className="search-results">
+                                {searchResults.map((result, index) => (
+                                    <li
+                                        key={index}
+                                        className="search-result-item"
+                                        onClick={() => handleSelectSearchResult(result)}
+                                    >
+                                        {getName(result, language)}
+                                        <span className="search-result-dob">{result.dob ? ` (b. ${result.dob})` : ''}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                     <div className="language-toggle">
+                        <button onClick={() => setLanguage('vn')} className={language === 'vn' ? 'active' : ''}>VN</button>
+                        <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</button>
+                    </div>
                 </div>
 
-                <h1>{currentMember['vn-name']}'s Family</h1>
-                <p>The Descendants of the Current Generation</p>
+                <h1>{t('familyTitle')(getName(currentMember, language))}</h1>
+                <p>{t('descendantsOf')}</p>
             </header>
 
             <main>
-                {/* Section for the current member and their spouse */}
                 <section className="parents-section">
-                    <MemberCard member={currentMember} />
-                    {currentMember.spouse && <span className="love-icon">&</span>}
-                    <MemberCard member={currentMember.spouse} isSpouse={true} />
+                    <MemberCard member={currentMember} lang={language} />
+                    {spouseWithGender && <span className="love-icon">&</span>}
+                    <MemberCard member={spouseWithGender} lang={language} />
                 </section>
 
                 <div className="connection-line"></div>
 
-                {/* Section for the children */}
                 {children.length > 0 && (
                     <section className="children-section">
                         <div className="children-section-header">
-                            <h3>Descendants</h3>
+                            <h3>{t('descendants')}</h3>
                             <div className="view-toggle-buttons">
                                 <button
                                     className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
@@ -248,6 +282,7 @@ const TreeShow = ({ familyData }) => {
                                         key={child.id || child.name}
                                         child={child}
                                         onSelectChild={handleSelectChild}
+                                        lang={language}
                                     />
                                 ))}
                             </div>
@@ -258,6 +293,7 @@ const TreeShow = ({ familyData }) => {
                                         key={child.id || child.name}
                                         child={child}
                                         onSelectChild={handleSelectChild}
+                                        lang={language}
                                     />
                                 ))}
                             </ul>
