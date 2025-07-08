@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import './TreeShow.css';
 
 // --- Translation Data ---
@@ -50,11 +50,11 @@ const ProfileImagePlaceholder = ({ gender }) => {
     );
 };
 
-const MemberCard = ({ member, lang }) => {
+const MemberCard = ({ member, lang, cardRef }) => {
     if (!member) return null;
     const genderClass = member.gender === 'M' ? 'male' : 'female';
     return (
-        <div className={`member-card ${genderClass}`}>
+        <div className={`member-card ${genderClass}`} ref={cardRef}>
             <ProfileImagePlaceholder gender={member.gender} />
             <div className="member-details">
                  <h2 className="member-name">{getName(member, lang)}</h2>
@@ -119,9 +119,50 @@ const TreeShow = ({ familyData }) => {
     const [viewMode, setViewMode] = useState('grid');
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [language, setLanguage] = useState('vn'); // 'vn' or 'en'
+    const [language, setLanguage] = useState('vn');
+    const [linePath, setLinePath] = useState('');
+
+    const mainMemberRef = useRef(null);
+    const spouseRef = useRef(null);
+    const connectionLineRef = useRef(null);
 
     const t = (key) => translations[language][key];
+
+    useEffect(() => {
+        const drawLines = () => {
+            if (!mainMemberRef.current || !connectionLineRef.current) {
+                setLinePath('');
+                return;
+            }
+
+            const containerRect = connectionLineRef.current.closest('.family-tree-container').getBoundingClientRect();
+            const mainRect = mainMemberRef.current.getBoundingClientRect();
+            const connectionRect = connectionLineRef.current.getBoundingClientRect();
+            
+            const startX = mainRect.left + mainRect.width / 2 - containerRect.left;
+            const startY = mainRect.bottom - containerRect.top;
+            const endY = connectionRect.top - containerRect.top;
+
+            let path = `M ${startX},${startY} L ${startX},${startY + 20} `;
+
+            if (spouseRef.current) {
+                const spouseRect = spouseRef.current.getBoundingClientRect();
+                const spouseX = spouseRect.left + spouseRect.width / 2 - containerRect.left;
+                path += `M ${spouseX},${startY} L ${spouseX},${startY + 20} `;
+                path += `M ${startX},${startY + 20} L ${spouseX},${startY + 20} `;
+            }
+            
+            const midX = connectionRect.left + connectionRect.width / 2 - containerRect.left;
+            path += `M ${midX},${startY + 20} L ${midX},${endY}`;
+            
+            setLinePath(path);
+        };
+
+        drawLines();
+        window.addEventListener('resize', drawLines);
+        return () => window.removeEventListener('resize', drawLines);
+    }, [currentMember, viewMode, language]);
+
 
     const allMembers = useMemo(() => {
         const flattened = [];
@@ -192,7 +233,6 @@ const TreeShow = ({ familyData }) => {
 
     const parentName = history.length > 0 ? getName(history[history.length - 1], language) : '';
 
-    // Infer spouse's gender if it's not provided in the data
     const spouseWithGender = currentMember.spouse ? {
         ...currentMember.spouse,
         gender: currentMember.spouse.gender || (currentMember.gender === 'M' ? 'F' : 'M')
@@ -200,6 +240,9 @@ const TreeShow = ({ familyData }) => {
 
     return (
         <div className={`family-tree-container ${animationClass}`}>
+             <svg className="relationship-lines" width="100%" height="100%">
+                <path d={linePath} stroke="var(--card-border)" strokeWidth="2" fill="none" />
+            </svg>
             <header className="tree-header">
                  {history.length > 0 && (
                     <button onClick={handleGoBack} className="back-button">
@@ -246,12 +289,12 @@ const TreeShow = ({ familyData }) => {
 
             <main>
                 <section className="parents-section">
-                    <MemberCard member={currentMember} lang={language} />
+                    <MemberCard member={currentMember} lang={language} cardRef={mainMemberRef} />
                     {spouseWithGender && <span className="love-icon">&</span>}
-                    <MemberCard member={spouseWithGender} lang={language} />
+                    <MemberCard member={spouseWithGender} lang={language} cardRef={spouseRef} />
                 </section>
 
-                <div className="connection-line"></div>
+                <div className="connection-line" ref={connectionLineRef}></div>
 
                 {children.length > 0 && (
                     <section className="children-section">
