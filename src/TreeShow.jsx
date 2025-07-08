@@ -68,10 +68,11 @@ const MemberCard = ({ member, lang, cardRef }) => {
 const ChildListItem = ({ child, onSelectChild, lang }) => {
     const hasChildren = child.children && child.children.length > 0;
     const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
+    const genderClass = child.gender === 'M' ? 'male' : 'female';
 
     return (
         <li
-            className={`child-list-item ${hasChildren ? 'clickable' : ''}`}
+            className={`child-list-item ${hasChildren ? 'clickable' : ''} ${genderClass}`}
             onClick={() => hasChildren && onSelectChild(child)}
             title={hasChildren ? `${translations[lang].viewFamily} ${getName(child, lang)}` : ''}
         >
@@ -90,10 +91,11 @@ const ChildListItem = ({ child, onSelectChild, lang }) => {
 const ChildGridCard = ({ child, onSelectChild, lang }) => {
     const hasChildren = child.children && child.children.length > 0;
     const genderSymbol = child.gender === 'M' ? '♂' : child.gender === 'F' ? '♀' : '';
+    const genderClass = child.gender === 'M' ? 'male' : 'female';
 
     return (
         <div
-            className={`child-grid-card ${hasChildren ? 'clickable' : ''}`}
+            className={`child-grid-card ${hasChildren ? 'clickable' : ''} ${genderClass}`}
             onClick={() => hasChildren && onSelectChild(child)}
             title={hasChildren ? `${translations[lang].viewFamily} ${getName(child, lang)}` : ''}
         >

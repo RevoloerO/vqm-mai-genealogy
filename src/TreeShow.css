@@ -220,15 +220,11 @@
     background-color: #fae5d3; /* Muted, vintage orange */
 }
 
-.profile-image-placeholder {
+.member-card .profile-image-placeholder {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    background-color: #e8dcb5;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #fff; /* White background for parent placeholders */
+    color: #c9bba2;
     margin-bottom: 1rem;
     padding: 1.25rem;
     box-sizing: border-box;
@@ -344,6 +340,7 @@
     width: 80px;
     height: 80px;
     margin-bottom: 1rem;
+    color: #fff;
 }
 
 .child-card-details {
@@ -367,7 +364,6 @@
 
 .child-gender-grid {
     font-size: 1rem;
-    color: var(--primary-accent);
     font-weight: bold;
 }
 
@@ -416,20 +412,20 @@
     align-items: center;
     padding: 0.75rem 1rem;
     position: relative;
-    background-color: #fff; /* Match grid card background */
+    background-color: #fff;
     border: 1px solid var(--card-border);
     border-radius: 4px;
     box-shadow: 0 2px 8px var(--card-shadow);
-    margin-bottom: 1rem; /* Space between items */
+    margin-bottom: 1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .child-list-item:last-child {
-    margin-bottom: 0; /* No margin on the last item */
+    margin-bottom: 0;
 }
 
 .child-list-item.clickable:hover {
-    transform: translateY(-5px); /* Same hover effect as grid card */
+    transform: translateY(-5px);
     box-shadow: 0 6px 15px var(--card-shadow);
     cursor: pointer;
 }
@@ -441,6 +437,7 @@
     margin-bottom: 0;
     margin-right: 1rem;
     flex-shrink: 0;
+    color: #fff;
 }
 
 .child-info {
@@ -469,7 +466,6 @@
 
 .child-gender {
     font-size: 1rem;
-    color: var(--primary-accent);
     width: 30px;
     text-align: center;
     font-weight: bold;
@@ -485,4 +481,25 @@
 .child-list-item.clickable:hover .child-action-indicator {
     color: var(--primary-accent);
     transform: translateX(5px);
+}
+
+/* GENDER-SPECIFIC COLORS FOR DESCENDANTS */
+.child-grid-card.male .profile-image-placeholder,
+.child-list-item.male .profile-image-placeholder {
+    background-color: #a7c4a7; /* Darker vintage green */
+}
+
+.child-grid-card.female .profile-image-placeholder,
+.child-list-item.female .profile-image-placeholder {
+    background-color: #e6b38f; /* Darker vintage orange */
+}
+
+.child-grid-card.male .child-gender-grid,
+.child-list-item.male .child-gender {
+    color: #5a6e5a; /* Darkest vintage green */
+}
+
+.child-grid-card.female .child-gender-grid,
+.child-list-item.female .child-gender {
+    color: #c78d5f; /* Darkest vintage orange */
 }
