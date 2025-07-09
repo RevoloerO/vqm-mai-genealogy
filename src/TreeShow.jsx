@@ -308,9 +308,14 @@ const TreeShow = ({ familyData }) => {
                     </div>
 
                     <div className="top-bar-right">
-                        <div className="language-toggle">
-                            <button onClick={() => setLanguage('vn')} className={language === 'vn' ? 'active' : ''}>VN</button>
-                            <button onClick={() => setLanguage('en')} className={language === 'en' ? 'active' : ''}>EN</button>
+                        <div 
+                            className={`language-switch ${language}`} 
+                            onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}
+                            title="Switch Language"
+                        >
+                            <div className="language-switch-handle"></div>
+                            <span className="lang-option">VN</span>
+                            <span className="lang-option">EN</span>
                         </div>
                     </div>
                 </div>

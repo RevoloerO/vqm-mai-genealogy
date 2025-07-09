@@ -148,32 +148,57 @@
     margin-left: 0.5rem;
 }
 
-.language-toggle {
+/* REFINED MODERN LANGUAGE SWITCH */
+.language-switch {
+    position: relative;
     display: flex;
-    border: 1px solid var(--card-border);
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    background-color: var(--card-border); /* Darker, solid base */
     border-radius: 20px;
-    overflow: hidden;
-    background-color: #fff;
-    box-shadow: 0 2px 8px var(--card-shadow);
+    cursor: pointer;
+    padding: 0 5px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.3s ease;
 }
 
-.language-toggle button {
-    background-color: transparent;
-    border: none;
-    padding: 0.75rem 1rem;
+.language-switch:hover {
+    background-color: #d9ceb0;
+}
+
+.language-switch .lang-option {
+    flex: 1;
+    text-align: center;
     font-family: var(--font-sans);
     font-weight: bold;
     font-size: 0.9rem;
-    cursor: pointer;
     color: var(--text-color);
-    opacity: 0.6;
-    transition: all 0.3s ease;
+    z-index: 2;
+    transition: color 0.4s ease;
 }
 
-.language-toggle button.active {
-    background-color: var(--card-bg);
-    opacity: 1;
+.language-switch .language-switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.5);
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.language-switch.vn .lang-option:first-child,
+.language-switch.en .lang-option:last-child {
     color: var(--header-color);
+}
+
+.language-switch.en .language-switch-handle {
+    transform: translateX(35px);
 }
 
 
@@ -508,7 +533,7 @@
     color: #c78d5f; /* Darkest vintage orange */
 }
 
-/* NEW STICKY ACTION BUTTONS - LIQUID LIGHT */
+/* LIQUID LIGHT STICKY ACTION BUTTONS */
 .sticky-buttons-container {
     position: fixed;
     bottom: 2rem;
@@ -553,7 +578,7 @@
     left: 50%;
     width: 150px;
     height: 150px;
-    background: radial-gradient(circle, #d4a15d, transparent 70%); /* FIXED: Replaced var(--grad-1) */
+    background: radial-gradient(circle, #d4a15d, transparent 70%);
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.8s ease;
     opacity: 0.4;
