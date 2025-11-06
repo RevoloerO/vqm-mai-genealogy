@@ -148,6 +148,17 @@
     margin-left: 0.5rem;
 }
 
+.spouse-badge {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    background-color: var(--primary-accent);
+    color: #fff;
+    font-size: 0.75rem;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
 /* REFINED MODERN LANGUAGE SWITCH */
 .language-switch {
     position: relative;
@@ -247,6 +258,22 @@
 
 .member-card.female {
     background-color: #fae5d3; /* Muted, vintage orange */
+}
+
+.member-card.highlighted-card {
+    animation: pulse-highlight 2s ease-in-out;
+    box-shadow: 0 0 0 4px var(--primary-accent);
+}
+
+@keyframes pulse-highlight {
+    0%, 100% {
+        box-shadow: 0 0 0 4px var(--primary-accent);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(181, 137, 0, 0.4);
+        transform: scale(1.02);
+    }
 }
 
 .member-card .profile-image-placeholder {

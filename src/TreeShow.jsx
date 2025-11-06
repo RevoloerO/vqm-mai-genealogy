@@ -13,6 +13,8 @@ const translations = {
         searchPlaceholder: "Search for a family member...",
         spouse: "Spouse",
         scrollToTop: "Scroll to Top",
+        spouseBadge: "(Spouse)",
+        searchingFor: "Showing search result for",
     },
     vn: {
         familyTitle: (name) => `Gia phả của ${name}`,
@@ -24,6 +26,8 @@ const translations = {
         searchPlaceholder: "Tìm kiếm thành viên...",
         spouse: "Vợ/Chồng",
         scrollToTop: "Lên đầu trang",
+        spouseBadge: "(Vợ/Chồng)",
+        searchingFor: "Hiển thị kết quả tìm kiếm cho",
     }
 };
 
@@ -52,11 +56,12 @@ const ProfileImagePlaceholder = ({ gender }) => {
     );
 };
 
-const MemberCard = ({ member, lang, cardRef }) => {
+const MemberCard = ({ member, lang, cardRef, isHighlighted = false }) => {
     if (!member) return null;
     const genderClass = member.gender === 'M' ? 'male' : 'female';
+    const highlightClass = isHighlighted ? 'highlighted-card' : '';
     return (
-        <div className={`member-card ${genderClass}`} ref={cardRef}>
+        <div className={`member-card ${genderClass} ${highlightClass}`} ref={cardRef}>
             <ProfileImagePlaceholder gender={member.gender} />
             <div className="member-details">
                  <h2 className="member-name">{getName(member, lang)}</h2>
@@ -126,10 +131,12 @@ const TreeShow = ({ familyData }) => {
     const [language, setLanguage] = useState('vn');
     const [linePath, setLinePath] = useState('');
     const [isStickyButtonsVisible, setIsStickyButtonsVisible] = useState(false);
+    const [highlightedSpouse, setHighlightedSpouse] = useState(null);
 
     const mainMemberRef = useRef(null);
     const spouseRef = useRef(null);
     const connectionLineRef = useRef(null);
+    const drawTimeoutRef = useRef(null);
 
     const t = (key, ...args) => {
         const template = translations[language][key];
@@ -158,7 +165,7 @@ const TreeShow = ({ familyData }) => {
             const containerRect = connectionLineRef.current.closest('.family-tree-container').getBoundingClientRect();
             const mainRect = mainMemberRef.current.getBoundingClientRect();
             const connectionRect = connectionLineRef.current.getBoundingClientRect();
-            
+
             const startX = mainRect.left + mainRect.width / 2 - containerRect.left;
             const startY = mainRect.bottom - containerRect.top;
             const endY = connectionRect.top - containerRect.top;
@@ -171,20 +178,38 @@ const TreeShow = ({ familyData }) => {
                 path += `M ${spouseX},${startY} L ${spouseX},${startY + 20} `;
                 path += `M ${startX},${startY + 20} L ${spouseX},${startY + 20} `;
             }
-            
+
             const midX = connectionRect.left + connectionRect.width / 2 - containerRect.left;
             path += `M ${midX},${startY + 20} L ${midX},${endY}`;
-            
+
             setLinePath(path);
         };
 
-        drawLines();
+        // Clear any pending draw operations
+        if (drawTimeoutRef.current) {
+            clearTimeout(drawTimeoutRef.current);
+        }
+
+        // Schedule new draw operation
+        drawTimeoutRef.current = setTimeout(() => {
+            drawLines();
+        }, 150);
+
         window.addEventListener('resize', drawLines);
-        return () => window.removeEventListener('resize', drawLines);
+
+        // Cleanup
+        return () => {
+            if (drawTimeoutRef.current) {
+                clearTimeout(drawTimeoutRef.current);
+            }
+            window.removeEventListener('resize', drawLines);
+        };
     }, [currentMember, viewMode, language]);
 
 
+    // familyData is static from JSON import, only calculate once
     const allMembers = useMemo(() => {
+        console.log('Building allMembers cache');
         const flattened = [];
         const recurse = (node, path) => {
             if (!node) return;
@@ -198,7 +223,7 @@ const TreeShow = ({ familyData }) => {
         };
         recurse(familyData, []);
         return flattened;
-    }, [familyData]);
+    }, []);
 
     useEffect(() => {
         if (searchTerm.trim() === '') {
@@ -217,9 +242,25 @@ const TreeShow = ({ familyData }) => {
     const handleSelectSearchResult = (result) => {
         setAnimationClass('fade-out');
         setTimeout(() => {
-            const newCurrentMember = result.path.length > 0 ? result.path[result.path.length - 1] : result;
-            setCurrentMember(newCurrentMember);
-            setHistory(result.path);
+            if (result.isSpouse) {
+                // Navigate to partner's view
+                const partner = result.path[result.path.length - 1];
+                setCurrentMember(partner);
+                setHistory(result.path.slice(0, -1));
+                setHighlightedSpouse(getName(result, language));
+
+                // Clear highlight after 3 seconds
+                setTimeout(() => setHighlightedSpouse(null), 3000);
+            } else {
+                // Existing logic for regular members
+                const newCurrentMember = result.path.length > 0
+                    ? result.path[result.path.length - 1]
+                    : result;
+                setCurrentMember(newCurrentMember);
+                setHistory(result.path);
+                setHighlightedSpouse(null);
+            }
+
             setSearchTerm('');
             setSearchResults([]);
             setAnimationClass('fade-in');
@@ -300,6 +341,11 @@ const TreeShow = ({ familyData }) => {
                                         onClick={() => handleSelectSearchResult(result)}
                                     >
                                         {getName(result, language)}
+                                        {result.isSpouse && (
+                                            <span className="spouse-badge">
+                                                {t('spouseBadge')}
+                                            </span>
+                                        )}
                                         <span className="search-result-dob">{result.dob ? ` (b. ${result.dob})` : ''}</span>
                                     </li>
                                 ))}
@@ -328,7 +374,12 @@ const TreeShow = ({ familyData }) => {
                 <section className="parents-section">
                     <MemberCard member={currentMember} lang={language} cardRef={mainMemberRef} />
                     {spouseWithGender && <span className="love-icon">&</span>}
-                    <MemberCard member={spouseWithGender} lang={language} cardRef={spouseRef} />
+                    <MemberCard
+                        member={spouseWithGender}
+                        lang={language}
+                        cardRef={spouseRef}
+                        isHighlighted={highlightedSpouse === getName(spouseWithGender, language)}
+                    />
                 </section>
 
                 <div className="connection-line" ref={connectionLineRef}></div>
