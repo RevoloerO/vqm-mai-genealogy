@@ -1,5 +1,5 @@
 {
-    "id": "G1-Khanh",
+    "id": "G1-1",
     "name": "Khanh Van Mai",
     "vn-name": "Mai Văn Khánh",
     "other-name": "",
@@ -13,7 +13,7 @@
     },
     "children": [
         {
-            "id": "G2-Thu",
+            "id": "G2-1",
             "name": "Thu Van Mai",
             "vn-name": "Mai Văn Thứ",
             "other-name": "",
@@ -28,7 +28,7 @@
             },
             "children": [
                 {
-                    "id": "G3-Bat",
+                    "id": "G3-1",
                     "name": "Bat Van Mai",
                     "vn-name": "Mai Văn Bát",
                     "other-name": "",
@@ -42,7 +42,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Long",
+                            "id": "G4-1",
                             "name": "Long Phi Mai",
                             "vn-name": "Mai Phi Long",
                             "other-name": "",
@@ -56,7 +56,7 @@
                             },
                             "children": [
                                 {
-                                    "id": "G5-Thang",
+                                    "id": "G5-1",
                                     "name": "Thang Dai Mai",
                                     "vn-name": "Mai Đại Thắng",
                                     "other-name": "",
@@ -66,7 +66,7 @@
                                     "children": null
                                 },
                                 {
-                                    "id": "G5-Hang",
+                                    "id": "G5-2",
                                     "name": "Hang Thi _ Mai",
                                     "vn-name": "Mai Thị _ Hằng",
                                     "other-name": "",
@@ -80,7 +80,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Van",
+                    "id": "G3-2",
                     "name": "Van Van Mai",
                     "vn-name": "Mai Văn Vạn",
                     "other-name": "",
@@ -90,7 +90,7 @@
                     "children": null
                 },
                 {
-                    "id": "G3-Thanh",
+                    "id": "G3-3",
                     "name": "Thanh Van Mai",
                     "vn-name": "Mai Văn Thành",
                     "other-name": "",
@@ -104,7 +104,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Tam",
+                            "id": "G4-2",
                             "name": "Tam Thanh Mai",
                             "vn-name": "Mai Thành Tâm",
                             "other-name": "",
@@ -114,7 +114,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Nhan",
+                            "id": "G4-3",
                             "name": "Nhan Trung Mai",
                             "vn-name": "Mai Trung Nhân",
                             "other-name": "Dennis",
@@ -128,7 +128,7 @@
                             },
                             "children": [
                                 {
-                                    "id": "G5-Minh",
+                                    "id": "G5-3",
                                     "name": "Minh Khai Mai",
                                     "vn-name": "Mai Khải Minh",
                                     "other-name": "",
@@ -138,7 +138,7 @@
                                     "children": null
                                 },
                                 {
-                                    "id": "G5-Phong",
+                                    "id": "G5-4",
                                     "name": "Phong Khai Mai",
                                     "vn-name": "Mai Khải Phong",
                                     "other-name": "",
@@ -150,7 +150,7 @@
                             ]
                         },
                         {
-                            "id": "G4-Tai",
+                            "id": "G4-4",
                             "name": "Tai Thanh Mai",
                             "vn-name": "Mai Thành Tài",
                             "other-name": "Bill",
@@ -162,7 +162,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Binh",
+                    "id": "G3-4",
                     "name": "Binh Van Mai",
                     "vn-name": "Mai Văn Bình",
                     "other-name": "",
@@ -172,7 +172,7 @@
                     "children": null
                 },
                 {
-                    "id": "G3-Tuoi",
+                    "id": "G3-5",
                     "name": "Tuoi Xuan Mai",
                     "vn-name": "Mai Xuân Tươi",
                     "other-name": "",
@@ -186,7 +186,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Cuong",
+                            "id": "G4-5",
                             "name": "Cuong Thanh Tran",
                             "vn-name": "Trần Thanh Cường",
                             "other-name": "",
@@ -200,7 +200,7 @@
                             },
                             "children": [
                                 {
-                                    "id": "G5-Bao",
+                                    "id": "G5-5",
                                     "name": "Bao Gia Tran",
                                     "vn-name": "Trần Gia Bảo",
                                     "other-name": "",
@@ -210,7 +210,7 @@
                                     "children": null
                                 },
                                 {
-                                    "id": "G5-Huy",
+                                    "id": "G5-6",
                                     "name": "Huy Gia Tran",
                                     "vn-name": "Trần Gia Huy",
                                     "other-name": "",
@@ -222,7 +222,7 @@
                             ]
                         },
                         {
-                            "id": "G4-Thuy",
+                            "id": "G4-6",
                             "name": "Thuy Thanh Tran",
                             "vn-name": "Trần Thanh Thúy",
                             "other-name": "",
@@ -237,7 +237,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Thinh",
+                            "id": "G4-7",
                             "name": "Thinh Thanh Tran",
                             "vn-name": "Trần Thanh Thịnh",
                             "other-name": "",
@@ -254,7 +254,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Viet",
+                    "id": "G3-6",
                     "name": "Viet Hung Mai",
                     "vn-name": "Mai Hùng Việt",
                     "other-name": "Hung Mai",
@@ -268,7 +268,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Gia",
+                            "id": "G4-8",
                             "name": "Gia Hoang Mai",
                             "vn-name": "Mai Hoàng GIa",
                             "other-name": "Zack Mai",
@@ -282,7 +282,7 @@
                             },
                             "children": [
                                 {
-                                    "id": "G5-Sophia",
+                                    "id": "G5-7",
                                     "name": "Sophia Mai",
                                     "vn-name": "Mai _ Sophia",
                                     "other-name": "",
@@ -294,7 +294,7 @@
                             ]
                         },
                         {
-                            "id": "G4-Nguyen",
+                            "id": "G4-9",
                             "name": "Nguyen Hoang Mai",
                             "vn-name": "Mai Hoàng Nguyên",
                             "other-name": "Ben Mai",
@@ -311,7 +311,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Tot",
+                    "id": "G3-7",
                     "name": "Tot Thi Xuan Mai",
                     "vn-name": "Mai Thị Xuân Tốt",
                     "other-name": "",
@@ -325,7 +325,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Quan",
+                            "id": "G4-10",
                             "name": "Quan Hoang Manh Le",
                             "vn-name": "Lê Hoàng Mạnh Quân",
                             "other-name": "",
@@ -340,7 +340,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Ngan",
+                            "id": "G4-11",
                             "name": "Ngan Hoang Phuong Le",
                             "vn-name": "Lê Hoàng Phượng Ngân",
                             "other-name": "",
@@ -352,7 +352,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Lan",
+                    "id": "G3-8",
                     "name": "Lan Thi Xuan Mai",
                     "vn-name": "Mai Thị Xuân Lan",
                     "other-name": "",
@@ -362,7 +362,7 @@
                     "children": null
                 },
                 {
-                    "id": "G3-Lien",
+                    "id": "G3-9",
                     "name": "Lien Dai Mai",
                     "vn-name": "Mai Đại Liên",
                     "other-name": "",
@@ -376,7 +376,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Tuyen-Van",
+                            "id": "G4-12",
                             "name": "Tuyen Van Pham",
                             "vn-name": "Phạm Văn Tuyến",
                             "other-name": "",
@@ -386,7 +386,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Tuyen-Thinh",
+                            "id": "G4-13",
                             "name": "Tuyen Thịnh Pham",
                             "vn-name": "Phạm Thịnh Tuyền",
                             "other-name": "",
@@ -396,7 +396,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Yen",
+                            "id": "G4-14",
                             "name": "Yen Kim Pham",
                             "vn-name": "Phạm Kim Yến",
                             "other-name": "",
@@ -408,7 +408,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Vuong",
+                    "id": "G3-10",
                     "name": "Vuong Dai Mai",
                     "vn-name": "Mai Đại Vương",
                     "other-name": "Vuong Mai",
@@ -422,7 +422,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Quyen",
+                            "id": "G4-15",
                             "name": "Quyen Vuong Mai",
                             "vn-name": "Mai Vương Quyền",
                             "other-name": "Vuong Quyen Mai",
@@ -432,7 +432,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Quoc",
+                            "id": "G4-16",
                             "name": "Quoc Vuong Mai",
                             "vn-name": "Mai Vương Quốc",
                             "other-name": "Quoc Mai",
@@ -442,7 +442,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Vu",
+                            "id": "G4-17",
                             "name": "Vu Vuong Mai",
                             "vn-name": "Mai Vương Vũ",
                             "other-name": "Vu Mai",
@@ -452,7 +452,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Nhi",
+                            "id": "G4-18",
                             "name": "Nhi Vuong Yen Mai",
                             "vn-name": "Mai Vương Yến Nhi",
                             "other-name": "Nhi Mai",
@@ -464,7 +464,7 @@
                     ]
                 },
                 {
-                    "id": "G3-Luong",
+                    "id": "G3-11",
                     "name": "Luong Dai Mai",
                     "vn-name": "Mai Đại Lượng",
                     "other-name": "",
@@ -474,7 +474,7 @@
                     "children": null
                 },
                 {
-                    "id": "G3-Hoang",
+                    "id": "G3-12",
                     "name": "Hoang Dai Mai",
                     "vn-name": "Mai Đại Hoàng",
                     "other-name": "",
@@ -484,7 +484,7 @@
                     "children": null
                 },
                 {
-                    "id": "G3-Phuong",
+                    "id": "G3-13",
                     "name": "Phuong Nhu Mai",
                     "vn-name": "Mai Như Phượng",
                     "other-name": "",
@@ -498,7 +498,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Vy",
+                            "id": "G4-19",
                             "name": "Vy Thien Tran",
                             "vn-name": "Trần Thiện Vỹ",
                             "other-name": "Michael Tran",
@@ -508,7 +508,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Tam",
+                            "id": "G4-20",
                             "name": "Tam Thien Tran",
                             "vn-name": "Trần Thiện Tâm",
                             "other-name": "Lukas Tran",
