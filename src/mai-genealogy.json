@@ -376,7 +376,7 @@
                     },
                     "children": [
                         {
-                            "id": "G4-Tuyen",
+                            "id": "G4-Tuyen-Van",
                             "name": "Tuyen Van Pham",
                             "vn-name": "Phạm Văn Tuyến",
                             "other-name": "",
@@ -386,7 +386,7 @@
                             "children": null
                         },
                         {
-                            "id": "G4-Tuyen",
+                            "id": "G4-Tuyen-Thinh",
                             "name": "Tuyen Thịnh Pham",
                             "vn-name": "Phạm Thịnh Tuyền",
                             "other-name": "",
@@ -442,7 +442,7 @@
                             "children": null
                         },
                         {
-                            "id": "G3-Vu",
+                            "id": "G4-Vu",
                             "name": "Vu Vuong Mai",
                             "vn-name": "Mai Vương Vũ",
                             "other-name": "Vu Mai",
