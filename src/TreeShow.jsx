@@ -15,6 +15,22 @@ const translations = {
         scrollToTop: "Scroll to Top",
         spouseBadge: "(Spouse)",
         searchingFor: "Showing search result for",
+        stats: "Statistics",
+        toggleStats: "Toggle Statistics",
+        totalMembers: "Total Members",
+        generations: "Generations",
+        genderDistribution: "Gender Distribution",
+        male: "Male",
+        female: "Female",
+        unknown: "Unknown",
+        generation: "Generation",
+        members: "members",
+        oldestInGeneration: "Oldest",
+        youngestInGeneration: "Youngest",
+        livingStatus: "Living Status",
+        living: "Living",
+        deceased: "Deceased",
+        unknownStatus: "Unknown",
     },
     vn: {
         familyTitle: (name) => `Gia phả của ${name}`,
@@ -28,6 +44,22 @@ const translations = {
         scrollToTop: "Lên đầu trang",
         spouseBadge: "(Vợ/Chồng)",
         searchingFor: "Hiển thị kết quả tìm kiếm cho",
+        stats: "Thống Kê",
+        toggleStats: "Bật/Tắt Thống Kê",
+        totalMembers: "Tổng Số Thành Viên",
+        generations: "Thế Hệ",
+        genderDistribution: "Phân Bố Giới Tính",
+        male: "Nam",
+        female: "Nữ",
+        unknown: "Không Rõ",
+        generation: "Thế Hệ",
+        members: "thành viên",
+        oldestInGeneration: "Lớn Tuổi Nhất",
+        youngestInGeneration: "Trẻ Nhất",
+        livingStatus: "Tình Trạng",
+        living: "Còn Sống",
+        deceased: "Đã Mất",
+        unknownStatus: "Chưa Rõ",
     }
 };
 
@@ -132,11 +164,17 @@ const TreeShow = ({ familyData }) => {
     const [linePath, setLinePath] = useState('');
     const [isStickyButtonsVisible, setIsStickyButtonsVisible] = useState(false);
     const [highlightedSpouse, setHighlightedSpouse] = useState(null);
+    const [isSpouseCollapsed, setIsSpouseCollapsed] = useState(false);
+    const [isSearchBottomSheetOpen, setIsSearchBottomSheetOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isDashboardOpen, setIsDashboardOpen] = useState(false);
 
     const mainMemberRef = useRef(null);
     const spouseRef = useRef(null);
     const connectionLineRef = useRef(null);
     const drawTimeoutRef = useRef(null);
+    const touchStartRef = useRef({ x: 0, y: 0 });
+    const containerRef = useRef(null);
 
     const t = (key, ...args) => {
         const template = translations[language][key];
@@ -146,6 +184,17 @@ const TreeShow = ({ familyData }) => {
         return template;
     };
 
+    // Detect mobile device
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     useEffect(() => {
         const handleScroll = () => {
             setIsStickyButtonsVisible(window.scrollY > 200);
@@ -154,6 +203,45 @@ const TreeShow = ({ familyData }) => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Touch gesture handler for swipe back navigation
+    useEffect(() => {
+        if (!isMobile || !containerRef.current || history.length === 0) return;
+
+        const handleTouchStart = (e) => {
+            touchStartRef.current = {
+                x: e.touches[0].clientX,
+                y: e.touches[0].clientY,
+                time: Date.now()
+            };
+        };
+
+        const handleTouchEnd = (e) => {
+            const touchEnd = {
+                x: e.changedTouches[0].clientX,
+                y: e.changedTouches[0].clientY,
+                time: Date.now()
+            };
+
+            const deltaX = touchEnd.x - touchStartRef.current.x;
+            const deltaY = Math.abs(touchEnd.y - touchStartRef.current.y);
+            const deltaTime = touchEnd.time - touchStartRef.current.time;
+
+            // Swipe right to go back (at least 100px, less than 300ms, mostly horizontal)
+            if (deltaX > 100 && deltaY < 50 && deltaTime < 300 && touchStartRef.current.x < 50) {
+                handleGoBack();
+            }
+        };
+
+        const container = containerRef.current;
+        container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            container.removeEventListener('touchstart', handleTouchStart);
+            container.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [isMobile, history]);
 
     useEffect(() => {
         const drawLines = () => {
@@ -225,9 +313,83 @@ const TreeShow = ({ familyData }) => {
         return flattened;
     }, []);
 
+    // Calculate family statistics
+    const familyStats = useMemo(() => {
+        const stats = {
+            totalMembers: 0,
+            generations: {},
+            genderStats: { male: 0, female: 0, unknown: 0 },
+            livingStatus: { living: 0, deceased: 0, unknown: 0 }
+        };
+
+        // Only count non-spouse members for accurate statistics
+        const realMembers = allMembers.filter(m => !m.isSpouse);
+        stats.totalMembers = realMembers.length;
+
+        realMembers.forEach(member => {
+            // Extract generation from ID (e.g., "G3-5" -> 3)
+            const genMatch = member.id?.match(/^G(\d+)-/);
+            const generation = genMatch ? genMatch[1] : 'Unknown';
+
+            // Initialize generation if not exists
+            if (!stats.generations[generation]) {
+                stats.generations[generation] = {
+                    count: 0,
+                    male: 0,
+                    female: 0,
+                    unknown: 0,
+                    oldest: null,
+                    youngest: null,
+                    members: []
+                };
+            }
+
+            const gen = stats.generations[generation];
+            gen.count++;
+            gen.members.push(member);
+
+            // Gender distribution
+            if (member.gender === 'M') {
+                gen.male++;
+                stats.genderStats.male++;
+            } else if (member.gender === 'F') {
+                gen.female++;
+                stats.genderStats.female++;
+            } else {
+                gen.unknown++;
+                stats.genderStats.unknown++;
+            }
+
+            // Living status
+            if (member.dod) {
+                stats.livingStatus.deceased++;
+            } else if (member.dob) {
+                stats.livingStatus.living++;
+            } else {
+                stats.livingStatus.unknown++;
+            }
+
+            // Find oldest/youngest in generation (only if we have DOB)
+            if (member.dob) {
+                const year = parseInt(member.dob);
+                if (!isNaN(year)) {
+                    if (!gen.oldest || year < parseInt(gen.oldest.dob)) {
+                        gen.oldest = member;
+                    }
+                    if (!gen.youngest || year > parseInt(gen.youngest.dob)) {
+                        gen.youngest = member;
+                    }
+                }
+            }
+        });
+
+        return stats;
+    }, [allMembers]);
+
     useEffect(() => {
         if (searchTerm.trim() === '') {
             setSearchResults([]);
+            setIsSearchBottomSheetOpen(false);
             return;
         }
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -237,10 +399,16 @@ const TreeShow = ({ familyData }) => {
             (member['en-name'] && member['en-name'].toLowerCase().includes(lowerCaseSearchTerm))
         );
         setSearchResults(results);
-    }, [searchTerm, allMembers]);
+
+        // Open bottom sheet on mobile when there are results
+        if (isMobile && results.length > 0) {
+            setIsSearchBottomSheetOpen(true);
+        }
+    }, [searchTerm, allMembers, isMobile]);
 
     const handleSelectSearchResult = (result) => {
         setAnimationClass('fade-out');
+        setIsSearchBottomSheetOpen(false);
         setTimeout(() => {
             if (result.isSpouse) {
                 // Navigate to partner's view
@@ -307,7 +475,7 @@ const TreeShow = ({ familyData }) => {
     } : null;
 
     return (
-        <div className={`family-tree-container ${animationClass}`}>
+        <div className={`family-tree-container ${animationClass}`} ref={containerRef}>
              <svg className="relationship-lines" width="100%" height="100%">
                 <path d={linePath} stroke="var(--card-border)" strokeWidth="2" fill="none" />
             </svg>
@@ -332,7 +500,7 @@ const TreeShow = ({ familyData }) => {
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
-                        {searchResults.length > 0 && (
+                        {searchResults.length > 0 && !isMobile && (
                             <ul className="search-results">
                                 {searchResults.map((result, index) => (
                                     <li
@@ -354,8 +522,19 @@ const TreeShow = ({ familyData }) => {
                     </div>
 
                     <div className="top-bar-right">
-                        <div 
-                            className={`language-switch ${language}`} 
+                        <button
+                            className="stats-toggle-button"
+                            onClick={() => setIsDashboardOpen(!isDashboardOpen)}
+                            title={t('toggleStats')}
+                            aria-label={t('toggleStats')}
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                            </svg>
+                            <span className="stats-button-text">{t('stats')}</span>
+                        </button>
+                        <div
+                            className={`language-switch ${language}`}
                             onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}
                             title="Switch Language"
                         >
@@ -373,13 +552,30 @@ const TreeShow = ({ familyData }) => {
             <main>
                 <section className="parents-section">
                     <MemberCard member={currentMember} lang={language} cardRef={mainMemberRef} />
-                    {spouseWithGender && <span className="love-icon">&</span>}
-                    <MemberCard
-                        member={spouseWithGender}
-                        lang={language}
-                        cardRef={spouseRef}
-                        isHighlighted={highlightedSpouse === getName(spouseWithGender, language)}
-                    />
+                    {spouseWithGender && isMobile && (
+                        <button
+                            className="mobile-spouse-toggle"
+                            onClick={() => setIsSpouseCollapsed(!isSpouseCollapsed)}
+                            aria-label={isSpouseCollapsed ? "Show spouse" : "Hide spouse"}
+                        >
+                            <span className="love-icon">&</span>
+                            <span className="spouse-toggle-text">
+                                {getName(spouseWithGender, language)}
+                            </span>
+                            <span className={`toggle-arrow ${isSpouseCollapsed ? 'collapsed' : ''}`}>
+                                ▼
+                            </span>
+                        </button>
+                    )}
+                    {spouseWithGender && !isMobile && <span className="love-icon">&</span>}
+                    {spouseWithGender && (!isMobile || !isSpouseCollapsed) && (
+                        <MemberCard
+                            member={spouseWithGender}
+                            lang={language}
+                            cardRef={spouseRef}
+                            isHighlighted={highlightedSpouse === getName(spouseWithGender, language)}
+                        />
+                    )}
                 </section>
 
                 <div className="connection-line" ref={connectionLineRef}></div>
@@ -455,6 +651,176 @@ const TreeShow = ({ familyData }) => {
                     </svg>
                 </button>
             </div>
+
+            {/* Mobile Bottom Sheet for Search Results */}
+            {isMobile && isSearchBottomSheetOpen && searchResults.length > 0 && (
+                <>
+                    <div
+                        className="bottom-sheet-overlay"
+                        onClick={() => setIsSearchBottomSheetOpen(false)}
+                    />
+                    <div className="bottom-sheet">
+                        <div className="bottom-sheet-header">
+                            <div className="bottom-sheet-handle" />
+                            <h3 className="bottom-sheet-title">
+                                {t('searchPlaceholder')} ({searchResults.length})
+                            </h3>
+                            <button
+                                className="bottom-sheet-close"
+                                onClick={() => setIsSearchBottomSheetOpen(false)}
+                                aria-label="Close"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                        <ul className="bottom-sheet-results">
+                            {searchResults.map((result, index) => (
+                                <li
+                                    key={index}
+                                    className="bottom-sheet-result-item"
+                                    onClick={() => handleSelectSearchResult(result)}
+                                >
+                                    <div className="result-item-content">
+                                        <span className="result-name">{getName(result, language)}</span>
+                                        {result.isSpouse && (
+                                            <span className="spouse-badge">
+                                                {t('spouseBadge')}
+                                            </span>
+                                        )}
+                                    </div>
+                                    {result.dob && (
+                                        <span className="result-dob">{t('born')}: {result.dob}</span>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </>
+            )}
+
+            {/* Statistics Dashboard */}
+            {isDashboardOpen && (
+                <>
+                    <div
+                        className="dashboard-overlay"
+                        onClick={() => setIsDashboardOpen(false)}
+                    />
+                    <div className={`statistics-dashboard ${isDashboardOpen ? 'open' : ''}`}>
+                        <div className="dashboard-header">
+                            <h2 className="dashboard-title">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                                </svg>
+                                {t('stats')}
+                            </h2>
+                            <button
+                                className="dashboard-close"
+                                onClick={() => setIsDashboardOpen(false)}
+                                aria-label="Close"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className="dashboard-content">
+                            {/* Total Members */}
+                            <div className="stat-card stat-card-primary">
+                                <div className="stat-label">{t('totalMembers')}</div>
+                                <div className="stat-value">{familyStats.totalMembers}</div>
+                                <div className="stat-sublabel">{familyStats.totalMembers} {t('members')}</div>
+                            </div>
+
+                            {/* Living Status */}
+                            <div className="stat-section">
+                                <h3 className="section-title">{t('livingStatus')}</h3>
+                                <div className="stat-grid">
+                                    <div className="stat-card stat-card-success">
+                                        <div className="stat-label">{t('living')}</div>
+                                        <div className="stat-value">{familyStats.livingStatus.living}</div>
+                                    </div>
+                                    <div className="stat-card stat-card-muted">
+                                        <div className="stat-label">{t('deceased')}</div>
+                                        <div className="stat-value">{familyStats.livingStatus.deceased}</div>
+                                    </div>
+                                    <div className="stat-card">
+                                        <div className="stat-label">{t('unknownStatus')}</div>
+                                        <div className="stat-value">{familyStats.livingStatus.unknown}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Gender Distribution */}
+                            <div className="stat-section">
+                                <h3 className="section-title">{t('genderDistribution')}</h3>
+                                <div className="stat-grid">
+                                    <div className="stat-card stat-card-male">
+                                        <div className="stat-label">{t('male')}</div>
+                                        <div className="stat-value">{familyStats.genderStats.male}</div>
+                                        <div className="stat-bar">
+                                            <div
+                                                className="stat-bar-fill stat-bar-male"
+                                                style={{ width: `${(familyStats.genderStats.male / familyStats.totalMembers * 100)}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                    <div className="stat-card stat-card-female">
+                                        <div className="stat-label">{t('female')}</div>
+                                        <div className="stat-value">{familyStats.genderStats.female}</div>
+                                        <div className="stat-bar">
+                                            <div
+                                                className="stat-bar-fill stat-bar-female"
+                                                style={{ width: `${(familyStats.genderStats.female / familyStats.totalMembers * 100)}%` }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Generation Statistics */}
+                            <div className="stat-section">
+                                <h3 className="section-title">{t('generations')}</h3>
+                                {Object.keys(familyStats.generations).sort().map(gen => {
+                                    const genData = familyStats.generations[gen];
+                                    return (
+                                        <div key={gen} className="generation-stat">
+                                            <div className="generation-header">
+                                                <span className="generation-label">{t('generation')} {gen}</span>
+                                                <span className="generation-count">{genData.count} {t('members')}</span>
+                                            </div>
+                                            <div className="generation-details">
+                                                <div className="gender-breakdown">
+                                                    <span className="gender-item gender-male">
+                                                        ♂ {genData.male}
+                                                    </span>
+                                                    <span className="gender-item gender-female">
+                                                        ♀ {genData.female}
+                                                    </span>
+                                                </div>
+                                                {genData.oldest && (
+                                                    <div className="age-range">
+                                                        <div className="age-item">
+                                                            <span className="age-label">{t('oldestInGeneration')}:</span>
+                                                            <span className="age-name">{getName(genData.oldest, language)}</span>
+                                                            <span className="age-year">({genData.oldest.dob})</span>
+                                                        </div>
+                                                        {genData.youngest && genData.youngest !== genData.oldest && (
+                                                            <div className="age-item">
+                                                                <span className="age-label">{t('youngestInGeneration')}:</span>
+                                                                <span className="age-name">{getName(genData.youngest, language)}</span>
+                                                                <span className="age-year">({genData.youngest.dob})</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
