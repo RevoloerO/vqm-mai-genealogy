@@ -592,6 +592,45 @@ body {
     background: linear-gradient(135deg, #388E3C, #66BB6A);
 }
 
+/* ===== FOOTER ===== */
+.timeline-footer {
+    margin-top: 4rem;
+    padding: 2rem;
+    text-align: center;
+    border-top: 2px solid var(--card-border);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 12px;
+}
+
+.footer-contact {
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.footer-email {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-accent);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(197, 140, 82, 0.1);
+    transition: all 0.3s ease;
+}
+
+.footer-email:hover {
+    background: rgba(197, 140, 82, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(197, 140, 82, 0.25);
+}
+
+.footer-email:active {
+    transform: translateY(0);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .timeline-container {

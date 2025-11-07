@@ -956,6 +956,48 @@
 }
 
 /* ============================================================
+   FOOTER
+   ============================================================ */
+.tree-footer {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    text-align: center;
+    border-top: 2px solid var(--card-border);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-radius: 12px;
+}
+
+.tree-footer .footer-contact {
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.tree-footer .footer-email {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-accent);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(197, 140, 82, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tree-footer .footer-email:hover {
+    background: rgba(197, 140, 82, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(197, 140, 82, 0.25);
+}
+
+.tree-footer .footer-email:active {
+    transform: translateY(0);
+}
+
+/* ============================================================
    STATISTICS DASHBOARD
    ============================================================ */
 

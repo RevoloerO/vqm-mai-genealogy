@@ -42,7 +42,9 @@ const translations = {
             war: "War",
             migration: "Migration",
             economic: "Economic"
-        }
+        },
+        footerContact: "For updates or questions, please contact:",
+        footerEmail: "vuongquyenmai@gmail.com"
     },
     vn: {
         title: "Dòng Thời Gian Gia Đình Mai",
@@ -69,7 +71,9 @@ const translations = {
             war: "Chiến Tranh",
             migration: "Di Cư",
             economic: "Kinh Tế"
-        }
+        },
+        footerContact: "Để cập nhật hoặc thắc mắc, vui lòng liên hệ:",
+        footerEmail: "vuongquyenmai@gmail.com"
     }
 };
 
@@ -666,6 +670,14 @@ const TimeLine = () => {
                     </div>
                 )}
             </div>
+
+            {/* Footer */}
+            <footer className="timeline-footer">
+                <p className="footer-contact">{t('footerContact')}</p>
+                <a href="mailto:vuongquyenmai@gmail.com" className="footer-email">
+                    {t('footerEmail')}
+                </a>
+            </footer>
         </div>
     );
 };
