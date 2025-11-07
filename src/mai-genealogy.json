@@ -520,19 +520,6 @@
                     ]
                 }
             ]
-        },
-        {
-            "name": "Test",
-            "vn-name": "Test",
-            "other-name": "",
-            "dob": "1905",
-            "spouse": {
-                "name": "",
-                "vn-name": "",
-                "other-name": "",
-                "dob": "1909"
-            },
-            "children": []
         }
     ]
 }
