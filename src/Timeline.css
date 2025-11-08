@@ -212,7 +212,7 @@ body {
 
 .timeline-track {
     position: relative;
-    height: 600px;
+    height: 1200px;
     display: flex;
 }
 
@@ -489,6 +489,97 @@ body {
     opacity: 0.7;
 }
 
+/* ===== BLOODLINE STYLES ===== */
+/* Primary trunk line visualization */
+.primary-trunk-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.primary-trunk-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(197, 140, 82, 0.15) 10%,
+        rgba(197, 140, 82, 0.15) 90%,
+        transparent 100%);
+    transform: translateY(-50%);
+}
+
+/* Primary bloodline - main trunk */
+.timeline-event.primary-bloodline {
+    z-index: 10;
+}
+
+.timeline-event.primary-bloodline .event-dot {
+    width: 18px;
+    height: 18px;
+    border-width: 4px;
+    box-shadow: 0 0 0 4px rgba(197, 140, 82, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-event.primary-bloodline.birth .event-dot,
+.timeline-event.primary-bloodline.death .event-dot {
+    border-color: var(--primary-accent);
+}
+
+/* Branch bloodline - siblings */
+.timeline-event.branch-bloodline {
+    z-index: 5;
+}
+
+.timeline-event.branch-bloodline .event-dot {
+    width: 12px;
+    height: 12px;
+    opacity: 0.85;
+}
+
+/* Branch connection line */
+.branch-line {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(197, 140, 82, 0.5), var(--card-border));
+    pointer-events: none;
+}
+
+/* Adjust branch line direction based on position */
+.timeline-event.branch-bloodline[style*="translateY(-"] .branch-line {
+    bottom: auto;
+    top: 100%;
+    background: linear-gradient(to top, rgba(197, 140, 82, 0.5), var(--card-border));
+}
+
+/* Branch level indicators - add visual depth */
+.timeline-event[data-branch-level="1"] .event-dot {
+    border-width: 3px;
+}
+
+.timeline-event[data-branch-level="2"] .event-dot {
+    width: 10px;
+    height: 10px;
+}
+
+.timeline-event[data-branch-level="3"] .event-dot,
+.timeline-event[data-branch-level="4"] .event-dot,
+.timeline-event[data-branch-level="5"] .event-dot {
+    width: 9px;
+    height: 9px;
+    opacity: 0.8;
+}
+
 /* ===== AGE GAPS LAYER ===== */
 .age-gaps-layer {
     position: absolute;
@@ -672,7 +763,7 @@ body {
 
     .timeline-track {
         min-width: 2000px;
-        height: 500px;
+        height: 1000px;
     }
 
     .timeline-legend {

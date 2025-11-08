@@ -160,10 +160,25 @@ const TimeLine = () => {
         setIsDragging(false);
     };
 
+    // Build primary bloodline path (first child -> first child -> ...)
+    const primaryBloodline = useMemo(() => {
+        const bloodline = new Set();
+        const traverse = (node) => {
+            if (!node || !node.id) return;
+            bloodline.add(node.id);
+            // Follow first child
+            if (node.children && node.children.length > 0) {
+                traverse(node.children[0]);
+            }
+        };
+        traverse(familyData);
+        return bloodline;
+    }, []);
+
     // Extract all timeline events (births and deaths)
     const timelineData = useMemo(() => {
         const events = [];
-        const recurse = (node, generation = 1) => {
+        const recurse = (node, generation = 1, childIndex = 0, branchLevel = 0) => {
             if (!node) return;
 
             // Skip spouses in main family structure
@@ -171,6 +186,7 @@ const TimeLine = () => {
 
             const genMatch = node.id?.match(/^G(\d+)-/);
             const gen = genMatch ? genMatch[1] : generation;
+            const isPrimary = primaryBloodline.has(node.id);
 
             // Birth event
             if (node.dob && node.dob.trim()) {
@@ -182,7 +198,10 @@ const TimeLine = () => {
                         person: node,
                         generation: gen,
                         name: node.name || node['vn-name'],
-                        gender: node.gender
+                        gender: node.gender,
+                        isPrimary: isPrimary,
+                        childIndex: childIndex,
+                        branchLevel: branchLevel
                     });
                 }
             }
@@ -197,20 +216,28 @@ const TimeLine = () => {
                         person: node,
                         generation: gen,
                         name: node.name || node['vn-name'],
-                        gender: node.gender
+                        gender: node.gender,
+                        isPrimary: isPrimary,
+                        childIndex: childIndex,
+                        branchLevel: branchLevel
                     });
                 }
             }
 
             // Recurse through children
             if (node.children) {
-                node.children.forEach(child => recurse(child, parseInt(gen) + 1));
+                node.children.forEach((child, idx) => {
+                    // If this is the first child, continue on same branch level
+                    // Otherwise, create a new branch level
+                    const newBranchLevel = idx === 0 ? branchLevel : branchLevel + 1;
+                    recurse(child, parseInt(gen) + 1, idx, newBranchLevel);
+                });
             }
         };
 
         recurse(familyData);
         return events.sort((a, b) => a.year - b.year);
-    }, []);
+    }, [primaryBloodline]);
 
     // Calculate age gaps between siblings and spouses
     const ageGaps = useMemo(() => {
@@ -540,6 +567,9 @@ const TimeLine = () => {
                         </div>
                     ))}
 
+                    {/* Primary bloodline trunk visualization */}
+                    <div className="primary-trunk-line"></div>
+
                     {/* Historical events overlay */}
                     {showHistoricalEvents && (
                         <div className="historical-events-layer">
@@ -569,14 +599,28 @@ const TimeLine = () => {
                         {filteredEvents.map((event, idx) => {
                             const position = getPixelPositionForYear(event.year);
                             const genderClass = event.gender === 'M' ? 'male' : event.gender === 'F' ? 'female' : 'unknown';
+                            const bloodlineClass = event.isPrimary ? 'primary-bloodline' : 'branch-bloodline';
+
+                            // Position branches based on branch level
+                            // Primary trunk = 0, each branch level adds 100px alternating above/below
+                            let branchOffset = 0;
+                            if (!event.isPrimary && event.branchLevel > 0) {
+                                const direction = event.branchLevel % 2 === 1 ? 1 : -1; // odd = below, even = above
+                                branchOffset = direction * event.branchLevel * 100;
+                            }
 
                             return (
                                 <div
                                     key={`${event.type}-${event.year}-${idx}`}
-                                    className={`timeline-event ${event.type} ${genderClass}`}
-                                    style={{ left: `${position}px` }}
+                                    className={`timeline-event ${event.type} ${genderClass} ${bloodlineClass}`}
+                                    style={{
+                                        left: `${position}px`,
+                                        transform: `translateY(${branchOffset}px)`
+                                    }}
+                                    data-branch-level={event.branchLevel}
                                 >
                                     <div className="event-dot"></div>
+                                    {!event.isPrimary && <div className="branch-line" style={{ height: `${Math.abs(branchOffset)}px` }}></div>}
                                     <div className="event-card">
                                         <div className="event-card-header">
                                             <span className="event-type-label">{t(event.type)}</span>
