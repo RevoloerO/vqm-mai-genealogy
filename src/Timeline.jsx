@@ -24,7 +24,7 @@ const translations = {
         allGenerations: "All Generations",
         allDecades: "All Decades",
         showHistoricalEvents: "Show Historical Events",
-        showAgeGaps: "Show Age Gaps",
+        showAllLabels: "Show All Labels",
         birth: "Birth",
         death: "Death",
         generation: "Generation",
@@ -53,7 +53,7 @@ const translations = {
         allGenerations: "Tất Cả Thế Hệ",
         allDecades: "Tất Cả Thập Kỷ",
         showHistoricalEvents: "Hiển Thị Sự Kiện Lịch Sử",
-        showAgeGaps: "Hiển Thị Khoảng Cách Tuổi",
+        showAllLabels: "Hiển Thị Tất Cả Nhãn",
         birth: "Sinh",
         death: "Mất",
         generation: "Thế Hệ",
@@ -89,7 +89,7 @@ const TimeLine = () => {
     const [selectedGeneration, setSelectedGeneration] = useState('all');
     const [selectedDecade, setSelectedDecade] = useState('all');
     const [showHistoricalEvents, setShowHistoricalEvents] = useState(true);
-    const [showAgeGaps, setShowAgeGaps] = useState(true);
+    const [showHistoricalLabels, setShowHistoricalLabels] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
@@ -178,7 +178,7 @@ const TimeLine = () => {
     // Extract all timeline events (births and deaths)
     const timelineData = useMemo(() => {
         const events = [];
-        const recurse = (node, generation = 1, childIndex = 0, branchLevel = 0) => {
+        const recurse = (node, generation = 1, childIndex = 0, parentBranchLevel = 0) => {
             if (!node) return;
 
             // Skip spouses in main family structure
@@ -187,6 +187,11 @@ const TimeLine = () => {
             const genMatch = node.id?.match(/^G(\d+)-/);
             const gen = genMatch ? genMatch[1] : generation;
             const isPrimary = primaryBloodline.has(node.id);
+
+            // Determine branch level for this node
+            // If first child (idx 0), inherit parent's branch level
+            // If not first child, create new branch level
+            const branchLevel = childIndex === 0 ? parentBranchLevel : parentBranchLevel + 1;
 
             // Birth event
             if (node.dob && node.dob.trim()) {
@@ -225,12 +230,10 @@ const TimeLine = () => {
             }
 
             // Recurse through children
+            // All children receive this node's branch level as their parent's branch level
             if (node.children) {
                 node.children.forEach((child, idx) => {
-                    // If this is the first child, continue on same branch level
-                    // Otherwise, create a new branch level
-                    const newBranchLevel = idx === 0 ? branchLevel : branchLevel + 1;
-                    recurse(child, parseInt(gen) + 1, idx, newBranchLevel);
+                    recurse(child, parseInt(gen) + 1, idx, branchLevel);
                 });
             }
         };
@@ -238,37 +241,6 @@ const TimeLine = () => {
         recurse(familyData);
         return events.sort((a, b) => a.year - b.year);
     }, [primaryBloodline]);
-
-    // Calculate age gaps between siblings and spouses
-    const ageGaps = useMemo(() => {
-        const gaps = [];
-        const recurse = (node) => {
-            if (!node || !node.children) return;
-
-            // Sibling age gaps
-            const childrenWithDob = node.children.filter(c => c.dob && !isNaN(parseInt(c.dob)));
-            for (let i = 0; i < childrenWithDob.length - 1; i++) {
-                const child1 = childrenWithDob[i];
-                const child2 = childrenWithDob[i + 1];
-                const gap = Math.abs(parseInt(child2.dob) - parseInt(child1.dob));
-                if (gap > 0) {
-                    gaps.push({
-                        type: 'sibling',
-                        person1: child1,
-                        person2: child2,
-                        gap,
-                        year: Math.min(parseInt(child1.dob), parseInt(child2.dob))
-                    });
-                }
-            }
-
-            // Recurse
-            node.children.forEach(child => recurse(child));
-        };
-
-        recurse(familyData);
-        return gaps;
-    }, []);
 
     // Get year range
     const yearRange = useMemo(() => {
@@ -495,23 +467,24 @@ const TimeLine = () => {
                         </select>
                     </label>
 
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            checked={showHistoricalEvents}
-                            onChange={(e) => setShowHistoricalEvents(e.target.checked)}
-                        />
-                        {t('showHistoricalEvents')}
-                    </label>
-
-                    <label className="checkbox-label">
-                        <input
-                            type="checkbox"
-                            checked={showAgeGaps}
-                            onChange={(e) => setShowAgeGaps(e.target.checked)}
-                        />
-                        {t('showAgeGaps')}
-                    </label>
+                    <div className="historical-events-controls">
+                        <label className="checkbox-label">
+                            <input
+                                type="checkbox"
+                                checked={showHistoricalEvents}
+                                onChange={(e) => setShowHistoricalEvents(e.target.checked)}
+                            />
+                            {t('showHistoricalEvents')}
+                        </label>
+                        {showHistoricalEvents && (
+                            <button
+                                className={`toggle-labels-button ${showHistoricalLabels ? 'active' : ''}`}
+                                onClick={() => setShowHistoricalLabels(!showHistoricalLabels)}
+                            >
+                                {t('showAllLabels')}
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -578,15 +551,13 @@ const TimeLine = () => {
                                 .map((event, idx) => (
                                     <div
                                         key={idx}
-                                        className={`historical-event event-${event.type}`}
+                                        className={`historical-event event-${event.type} ${showHistoricalLabels ? 'show-label' : ''}`}
                                         style={{ left: `${getPixelPositionForYear(event.year)}px` }}
-                                        title={`${event.year}: ${language === 'vn' ? event.eventVn : event.event}`}
                                     >
                                         <div className="event-marker"></div>
                                         <div className="event-label">
                                             <strong>{event.year}</strong><br />
                                             {language === 'vn' ? event.eventVn : event.event}
-                                            <span className="event-type-badge">{t(`eventType.${event.type}`)}</span>
                                         </div>
                                     </div>
                                 ))
@@ -602,11 +573,16 @@ const TimeLine = () => {
                             const bloodlineClass = event.isPrimary ? 'primary-bloodline' : 'branch-bloodline';
 
                             // Position branches based on branch level
-                            // Primary trunk = 0, each branch level adds 100px alternating above/below
+                            // Birth events always go down, death events always go up
                             let branchOffset = 0;
                             if (!event.isPrimary && event.branchLevel > 0) {
-                                const direction = event.branchLevel % 2 === 1 ? 1 : -1; // odd = below, even = above
-                                branchOffset = direction * event.branchLevel * 100;
+                                if (event.type === 'birth') {
+                                    // Birth events: always below (positive direction)
+                                    branchOffset = event.branchLevel * 80;
+                                } else {
+                                    // Death events: always above (negative direction)
+                                    branchOffset = -event.branchLevel * 80;
+                                }
                             }
 
                             return (
@@ -620,7 +596,7 @@ const TimeLine = () => {
                                     data-branch-level={event.branchLevel}
                                 >
                                     <div className="event-dot"></div>
-                                    {!event.isPrimary && <div className="branch-line" style={{ height: `${Math.abs(branchOffset)}px` }}></div>}
+                                    {!event.isPrimary && event.type === 'death' && <div className="branch-line" style={{ height: `${Math.abs(branchOffset)}px` }}></div>}
                                     <div className="event-card">
                                         <div className="event-card-header">
                                             <span className="event-type-label">{t(event.type)}</span>
@@ -633,41 +609,6 @@ const TimeLine = () => {
                             );
                         })}
                     </div>
-
-                    {/* Age gaps visualization */}
-                    {showAgeGaps && (
-                        <div className="age-gaps-layer">
-                            {ageGaps
-                                .filter(gap => {
-                                    if (selectedGeneration !== 'all') {
-                                        const gen1 = gap.person1.id?.match(/^G(\d+)-/)?.[1];
-                                        if (gen1 !== selectedGeneration) return false;
-                                    }
-                                    if (selectedDecade !== 'all') {
-                                        const decade = Math.floor(gap.year / 10) * 10;
-                                        if (decade !== parseInt(selectedDecade)) return false;
-                                    }
-                                    return true;
-                                })
-                                .map((gap, idx) => {
-                                    const position = getPixelPositionForYear(gap.year);
-                                    return (
-                                        <div
-                                            key={`gap-${idx}`}
-                                            className={`age-gap age-gap-${gap.type}`}
-                                            style={{ left: `${position}px` }}
-                                        >
-                                            <div className="age-gap-label">
-                                                {getName(gap.person1, language)} ↔ {getName(gap.person2, language)}
-                                                <br />
-                                                <strong>{gap.gap} {t('yearsDifference')}</strong>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    )}
                 </div>
             </div>
 

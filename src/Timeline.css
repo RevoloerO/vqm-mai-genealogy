@@ -190,6 +190,55 @@ body {
     width: 18px;
     height: 18px;
     cursor: pointer;
+    accent-color: var(--primary-accent);
+}
+
+/* Historical Events Controls Group */
+.historical-events-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    background: rgba(249, 243, 232, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(197, 140, 82, 0.15);
+}
+
+.toggle-labels-button {
+    padding: 0.35rem 0.75rem;
+    background: transparent;
+    color: var(--primary-accent);
+    border: 1px solid var(--primary-accent);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.toggle-labels-button:hover {
+    background: var(--primary-accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(197, 140, 82, 0.3);
+}
+
+.toggle-labels-button:active {
+    transform: translateY(0);
+}
+
+/* Active state when labels are shown */
+.toggle-labels-button.active {
+    background: var(--primary-accent);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(197, 140, 82, 0.3);
+}
+
+.toggle-labels-button.active:hover {
+    background: #b58c52;
+    box-shadow: 0 3px 8px rgba(197, 140, 82, 0.4);
 }
 
 /* ===== TIMELINE SCROLL CONTAINER ===== */
@@ -212,7 +261,7 @@ body {
 
 .timeline-track {
     position: relative;
-    height: 1200px;
+    height: 700px;
     display: flex;
 }
 
@@ -228,12 +277,15 @@ body {
 }
 
 .timeline-segment.gap {
-    background: linear-gradient(135deg, #f9f3e8 0%, #f4e8d0 100%);
-    border-left: 2px dashed var(--card-border);
-    border-right: 2px dashed var(--card-border);
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(249, 243, 232, 0.7) 5%,
+        rgba(249, 243, 232, 0.7) 95%,
+        transparent 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 /* Gap Indicator */
@@ -242,49 +294,75 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
+    z-index: 1;
 }
 
 .gap-dots {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary-accent);
-    letter-spacing: 0.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(197, 140, 82, 0.4);
+    letter-spacing: 0.5rem;
 }
 
 .gap-years {
-    font-size: 0.75rem;
-    font-weight: bold;
-    color: var(--text-color);
-    background: var(--card-bg);
-    padding: 0.25rem 0.5rem;
-    border-radius: 12px;
-    opacity: 0.8;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-accent);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 0.6rem;
+    border-radius: 10px;
+    border: 1px solid rgba(197, 140, 82, 0.2);
+    backdrop-filter: blur(2px);
 }
 
 /* ===== DECADE MARKERS ===== */
 .decade-marker {
     position: absolute;
-    top: 50%;
+    top: 0;
+    bottom: 0;
     transform: translateX(-50%);
     z-index: 1;
+    width: 1px;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(197, 140, 82, 0.08) 10%,
+        rgba(197, 140, 82, 0.12) 50%,
+        rgba(197, 140, 82, 0.08) 90%,
+        transparent 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .decade-label {
-    display: block;
+    position: relative;
     font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-accent);
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(197, 140, 82, 0.6);
     text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid rgba(197, 140, 82, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.decade-marker:hover .decade-label {
+    color: var(--primary-accent);
+    background: rgba(255, 255, 255, 1);
+    border-color: rgba(197, 140, 82, 0.4);
+    transform: scale(1.08);
+    box-shadow: 0 3px 8px rgba(197, 140, 82, 0.15);
 }
 
 .decade-line {
-    width: 2px;
-    height: 500px;
-    background: linear-gradient(to bottom, transparent 0%, var(--card-border) 20%, var(--card-border) 80%, transparent 100%);
-    margin: 0 auto;
+    display: none;
 }
 
 /* ===== HISTORICAL EVENTS LAYER ===== */
@@ -295,82 +373,133 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 2;
 }
 
 .historical-event {
     position: absolute;
-    top: 10%;
+    top: 0;
+    height: 35%;
     transform: translateX(-50%);
     pointer-events: auto;
-    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 50px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
+/* Vertical line marker blended into timeline */
 .event-marker {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin: 0 auto 0.5rem auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    height: 200%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    opacity: 0.25;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.historical-event:hover .event-marker {
+    width: 4px;
+    opacity: 0.7;
+    box-shadow: 0 0 15px currentColor;
 }
 
 .event-political .event-marker {
-    background: linear-gradient(135deg, #1976D2, #42A5F5);
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(25, 118, 210, 0.4) 15%,
+        rgba(25, 118, 210, 0.6) 50%,
+        rgba(25, 118, 210, 0.4) 85%,
+        transparent 100%);
 }
 
 .event-war .event-marker {
-    background: linear-gradient(135deg, #D32F2F, #F44336);
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(211, 47, 47, 0.4) 15%,
+        rgba(211, 47, 47, 0.6) 50%,
+        rgba(211, 47, 47, 0.4) 85%,
+        transparent 100%);
 }
 
 .event-migration .event-marker {
-    background: linear-gradient(135deg, #7B1FA2, #AB47BC);
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(123, 31, 162, 0.4) 15%,
+        rgba(123, 31, 162, 0.6) 50%,
+        rgba(123, 31, 162, 0.4) 85%,
+        transparent 100%);
 }
 
 .event-economic .event-marker {
-    background: linear-gradient(135deg, #388E3C, #66BB6A);
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(56, 142, 60, 0.4) 15%,
+        rgba(56, 142, 60, 0.6) 50%,
+        rgba(56, 142, 60, 0.4) 85%,
+        transparent 100%);
 }
 
+/* Label appears on hover */
 .event-label {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    text-align: center;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 0.6rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    text-align: left;
+    min-width: 140px;
     max-width: 180px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-left: 4px solid;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    white-space: normal;
+    line-height: 1.5;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.historical-event:hover .event-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
+
+/* Show all labels when toggle is active */
+.historical-event.show-label .event-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
 }
 
 .event-political .event-label {
-    border-left-color: #1976D2;
+    border-top: 3px solid #1976D2;
 }
 
 .event-war .event-label {
-    border-left-color: #D32F2F;
+    border-top: 3px solid #D32F2F;
 }
 
 .event-migration .event-label {
-    border-left-color: #7B1FA2;
+    border-top: 3px solid #7B1FA2;
 }
 
 .event-economic .event-label {
-    border-left-color: #388E3C;
+    border-top: 3px solid #388E3C;
 }
 
 .event-label strong {
     color: var(--header-color);
+    font-size: 0.9rem;
     display: block;
-    margin-bottom: 0.25rem;
-}
-
-.event-type-badge {
-    display: inline-block;
-    background: var(--card-bg);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    margin-top: 0.25rem;
-    font-weight: bold;
-    color: var(--header-color);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
 }
 
 /* ===== TIMELINE EVENTS LAYER ===== */
@@ -392,6 +521,25 @@ body {
 
 .timeline-event.birth {
     top: 60%;
+}
+
+.timeline-event.birth::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 0;
+    background: linear-gradient(to top, currentColor, transparent);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.timeline-event.birth:hover::before {
+    height: calc(10% + var(--birth-offset, 0px));
+    opacity: 0.6;
 }
 
 .timeline-event.death {
@@ -417,8 +565,24 @@ body {
     background: linear-gradient(135deg, #4CAF50, #66BB6A);
 }
 
+.timeline-event.birth.male::before {
+    background: linear-gradient(to top, #4CAF50, transparent);
+}
+
 .timeline-event.birth.female .event-dot {
     background: linear-gradient(135deg, #FF9800, #FFB74D);
+}
+
+.timeline-event.birth.female::before {
+    background: linear-gradient(to top, #FF9800, transparent);
+}
+
+.timeline-event.birth.unknown .event-dot {
+    background: linear-gradient(135deg, #9E9E9E, #BDBDBD);
+}
+
+.timeline-event.birth.unknown::before {
+    background: linear-gradient(to top, #9E9E9E, transparent);
 }
 
 .timeline-event.death.male .event-dot {
@@ -429,7 +593,6 @@ body {
     background: linear-gradient(135deg, #5D4037, #8D6E63);
 }
 
-.timeline-event.birth.unknown .event-dot,
 .timeline-event.death.unknown .event-dot {
     background: linear-gradient(135deg, #9E9E9E, #BDBDBD);
 }
@@ -763,7 +926,7 @@ body {
 
     .timeline-track {
         min-width: 2000px;
-        height: 1000px;
+        height: 600px;
     }
 
     .timeline-legend {
