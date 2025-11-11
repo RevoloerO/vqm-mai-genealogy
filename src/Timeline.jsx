@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import ReactDOM from 'react-dom/client';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import familyData from './mai-genealogy.json';
 import './TimeLine.css';
 
@@ -423,7 +423,7 @@ const TimeLine = () => {
                     <p className="timeline-subtitle">{t('subtitle')}</p>
                 </div>
                 <div className="timeline-header-actions">
-                    <a href="/" className="back-to-tree-btn">{t('backToTree')}</a>
+                    <Link to="/vqm-mai-genealogy/" className="back-to-tree-btn">{t('backToTree')}</Link>
                     <div
                         className={`language-switch ${language}`}
                         onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './TreeShow.css';
 
@@ -306,7 +306,6 @@ const TreeShow = ({ familyData }) => {
 
     // familyData is static from JSON import, only calculate once
     const allMembers = useMemo(() => {
-        console.log('Building allMembers cache');
         const flattened = [];
         const recurse = (node, path) => {
             if (!node) return;
@@ -787,7 +786,7 @@ const TreeShow = ({ familyData }) => {
                                         <div className="stat-bar">
                                             <div
                                                 className="stat-bar-fill stat-bar-male"
-                                                style={{ width: `${(familyStats.genderStats.male / familyStats.totalMembers * 100)}%` }}
+                                                style={{ width: `${familyStats.totalMembers > 0 ? (familyStats.genderStats.male / familyStats.totalMembers * 100) : 0}%` }}
                                             ></div>
                                         </div>
                                     </div>
@@ -797,7 +796,7 @@ const TreeShow = ({ familyData }) => {
                                         <div className="stat-bar">
                                             <div
                                                 className="stat-bar-fill stat-bar-female"
-                                                style={{ width: `${(familyStats.genderStats.female / familyStats.totalMembers * 100)}%` }}
+                                                style={{ width: `${familyStats.totalMembers > 0 ? (familyStats.genderStats.female / familyStats.totalMembers * 100) : 0}%` }}
                                             ></div>
                                         </div>
                                     </div>

@@ -1392,6 +1392,24 @@
     color: #7d6e63;
 }
 
+/* Section Styles */
+.stat-section {
+    margin-bottom: 2rem;
+}
+
+.stat-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--header-color);
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-border);
+}
+
 /* Mobile Responsive for Dashboard */
 @media (max-width: 768px) {
     .statistics-dashboard {

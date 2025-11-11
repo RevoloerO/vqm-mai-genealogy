@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './HomePage.css';
 import genealogyData from './mai-genealogy.json';
 import TreeShow from './TreeShow.jsx';
