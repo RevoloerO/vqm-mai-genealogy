@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import familyData from './mai-genealogy.json';
-import './TimeLine.css';
+import './Timeline.css';
 
 // Historical events in Vietnamese history
 const historicalEvents = [
@@ -94,7 +94,7 @@ const TimeLine = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    const scrollContainerRef = React.useRef(null);
+    const scrollContainerRef = useRef(null);
 
     const t = (key) => {
         const keys = key.split('.');
