@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage, LangText, LanguageSwitch } from './LanguageContext.jsx';
 import './TreeShow.css';
 
 // --- Translation Data ---
@@ -34,6 +35,8 @@ const translations = {
         unknownStatus: "Unknown",
         timeline: "Timeline",
         viewTimeline: "View Timeline",
+        treeText: "Text View",
+        viewTreeText: "View as Text",
         footerContact: "For updates or questions, please contact:",
         footerEmail: "vuongquyenmai@gmail.com"
     },
@@ -67,6 +70,8 @@ const translations = {
         unknownStatus: "Chưa Rõ",
         timeline: "Dòng Thời Gian",
         viewTimeline: "Xem Dòng Thời Gian",
+        treeText: "Dạng Văn Bản",
+        viewTreeText: "Xem Dạng Văn Bản",
         footerContact: "Để cập nhật hoặc thắc mắc, vui lòng liên hệ:",
         footerEmail: "vuongquyenmai@gmail.com"
     }
@@ -163,13 +168,13 @@ const ChildGridCard = ({ child, onSelectChild, lang }) => {
 
 
 const TreeShow = ({ familyData }) => {
+    const { language, displayLanguage } = useLanguage();
     const [currentMember, setCurrentMember] = useState(familyData);
     const [history, setHistory] = useState([]);
     const [animationClass, setAnimationClass] = useState('fade-in');
     const [viewMode, setViewMode] = useState('grid');
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [language, setLanguage] = useState('vn');
     const [linePath, setLinePath] = useState('');
     const [isStickyButtonsVisible, setIsStickyButtonsVisible] = useState(false);
     const [highlightedSpouse, setHighlightedSpouse] = useState(null);
@@ -186,7 +191,7 @@ const TreeShow = ({ familyData }) => {
     const containerRef = useRef(null);
 
     const t = (key, ...args) => {
-        const template = translations[language][key];
+        const template = translations[displayLanguage][key];
         if (typeof template === 'function') {
             return template(...args);
         }
@@ -507,7 +512,18 @@ const TreeShow = ({ familyData }) => {
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>
                             </svg>
-                            <span className="timeline-button-text">{t('timeline')}</span>
+                            <span className="timeline-button-text"><LangText text={t('timeline')} /></span>
+                        </Link>
+                        <Link
+                            to="/vqm-mai-genealogy/tree-text"
+                            className="tree-text-link-button"
+                            title={t('viewTreeText')}
+                            aria-label={t('viewTreeText')}
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
+                            </svg>
+                            <span className="tree-text-button-text"><LangText text={t('treeText')} /></span>
                         </Link>
                     </div>
 
@@ -550,22 +566,14 @@ const TreeShow = ({ familyData }) => {
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
                             </svg>
-                            <span className="stats-button-text">{t('stats')}</span>
+                            <span className="stats-button-text"><LangText text={t('stats')} /></span>
                         </button>
-                        <div
-                            className={`language-switch ${language}`}
-                            onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}
-                            title="Switch Language"
-                        >
-                            <div className="language-switch-handle"></div>
-                            <span className="lang-option">VN</span>
-                            <span className="lang-option">EN</span>
-                        </div>
+                        <LanguageSwitch />
                     </div>
                 </div>
 
-                <h1>{t('familyTitle', getName(currentMember, language))}</h1>
-                <p>{t('descendantsOf')}</p>
+                <h1><LangText text={t('familyTitle', getName(currentMember, language))} /></h1>
+                <p><LangText text={t('descendantsOf')} /></p>
             </header>
 
             <main>
@@ -602,7 +610,7 @@ const TreeShow = ({ familyData }) => {
                 {children.length > 0 && (
                     <section className="children-section">
                         <div className="children-section-header">
-                            <h3>{t('descendants')}</h3>
+                            <h3><LangText text={t('descendants')} /></h3>
                             <div className="view-toggle-buttons">
                                 <button
                                     className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
@@ -673,7 +681,7 @@ const TreeShow = ({ familyData }) => {
 
             {/* Footer */}
             <footer className="tree-footer">
-                <p className="footer-contact">{t('footerContact')}</p>
+                <p className="footer-contact"><LangText text={t('footerContact')} /></p>
                 <a href="mailto:vuongquyenmai@gmail.com" className="footer-email">
                     {t('footerEmail')}
                 </a>

@@ -1,6 +1,7 @@
 import { useState, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import familyData from './mai-genealogy.json';
+import { useLanguage, LangText, LanguageSwitch } from './LanguageContext.jsx';
 import './Timeline.css';
 
 // Historical events in Vietnamese history
@@ -85,7 +86,7 @@ const getName = (person, lang) => {
 };
 
 const TimeLine = () => {
-    const [language, setLanguage] = useState('vn');
+    const { language, displayLanguage } = useLanguage();
     const [selectedGeneration, setSelectedGeneration] = useState('all');
     const [selectedDecade, setSelectedDecade] = useState('all');
     const [showHistoricalEvents, setShowHistoricalEvents] = useState(true);
@@ -98,7 +99,7 @@ const TimeLine = () => {
 
     const t = (key) => {
         const keys = key.split('.');
-        let value = translations[language];
+        let value = translations[displayLanguage];
         for (const k of keys) {
             value = value[k];
             if (!value) return key;
@@ -419,20 +420,14 @@ const TimeLine = () => {
         <div className="timeline-container">
             <header className="timeline-header">
                 <div className="timeline-header-content">
-                    <h1>{t('title')}</h1>
-                    <p className="timeline-subtitle">{t('subtitle')}</p>
+                    <h1><LangText text={t('title')} /></h1>
+                    <p className="timeline-subtitle"><LangText text={t('subtitle')} /></p>
                 </div>
                 <div className="timeline-header-actions">
-                    <Link to="/vqm-mai-genealogy/" className="back-to-tree-btn">{t('backToTree')}</Link>
-                    <div
-                        className={`language-switch ${language}`}
-                        onClick={() => setLanguage(language === 'vn' ? 'en' : 'vn')}
-                        title="Switch Language"
-                    >
-                        <div className="language-switch-handle"></div>
-                        <span className="lang-option">VN</span>
-                        <span className="lang-option">EN</span>
-                    </div>
+                    <Link to="/vqm-mai-genealogy/" className="back-to-tree-btn">
+                        <LangText text={t('backToTree')} />
+                    </Link>
+                    <LanguageSwitch />
                 </div>
             </header>
 
@@ -658,7 +653,7 @@ const TimeLine = () => {
 
             {/* Footer */}
             <footer className="timeline-footer">
-                <p className="footer-contact">{t('footerContact')}</p>
+                <p className="footer-contact"><LangText text={t('footerContact')} /></p>
                 <a href="mailto:vuongquyenmai@gmail.com" className="footer-email">
                     {t('footerEmail')}
                 </a>

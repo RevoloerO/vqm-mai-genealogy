@@ -1,0 +1,135 @@
+/* ===== PAGE TRANSITIONS ===== */
+.page-transition {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.page-transition.fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.page-transition.fade-out {
+    animation: fadeOut 0.2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ===== LANGUAGE SWITCH COMPONENT ===== */
+.language-switch {
+    display: flex;
+    align-items: center;
+    background: #f9f3e8;
+    border-radius: 20px;
+    padding: 4px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #e8dcc8;
+    width: 80px;
+    height: 32px;
+}
+
+.language-switch-handle {
+    position: absolute;
+    width: 36px;
+    height: 24px;
+    background: #C58C52;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.language-switch.en .language-switch-handle {
+    transform: translateX(36px) translateY(-50%);
+}
+
+.lang-option {
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    z-index: 1;
+    color: #4a4a4a;
+    transition: color 0.3s ease;
+}
+
+.language-switch.vn .lang-option:first-of-type,
+.language-switch.en .lang-option:last-of-type {
+    color: #fff;
+}
+
+/* ===== LANGUAGE TRANSITION ANIMATIONS ===== */
+.lang-slide-out-left {
+    display: inline-block;
+    animation: slideOutLeft 0.25s ease-in forwards;
+}
+
+.lang-slide-out-right {
+    display: inline-block;
+    animation: slideOutRight 0.25s ease-in forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+.lang-type-in {
+    display: inline-block;
+    animation: typeIn 0.35s ease-out forwards;
+}
+
+@keyframes typeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(15px);
+        filter: blur(2px);
+    }
+    50% {
+        opacity: 0.7;
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}

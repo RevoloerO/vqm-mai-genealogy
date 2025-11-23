@@ -1078,6 +1078,45 @@
     display: inline;
 }
 
+/* Tree Text View Link Button */
+.tree-text-link-button {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 0.5rem 1.25rem;
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 10px -2px var(--card-shadow);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.tree-text-link-button:hover {
+    background-color: #f7f1df;
+    box-shadow: 0 6px 15px -2px var(--card-shadow);
+    transform: translateY(-2px);
+}
+
+.tree-text-link-button:active {
+    transform: translateY(0);
+}
+
+.tree-text-link-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.tree-text-button-text {
+    display: inline;
+}
+
 /* Dashboard Overlay */
 .dashboard-overlay {
     position: fixed;
@@ -1461,6 +1500,16 @@
     }
 
     .timeline-link-button {
+        padding: 0.5rem;
+        min-width: 44px;
+        justify-content: center;
+    }
+
+    .tree-text-button-text {
+        display: none;
+    }
+
+    .tree-text-link-button {
         padding: 0.5rem;
         min-width: 44px;
         justify-content: center;
